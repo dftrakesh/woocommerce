@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 public class DateDeserializer extends JsonDeserializer<LocalDateTime> {
 
@@ -14,7 +13,6 @@ public class DateDeserializer extends JsonDeserializer<LocalDateTime> {
     public LocalDateTime deserialize(JsonParser jp, DeserializationContext ctxt) {
         try {
             String timestamp = jp.getText().trim();
-            //System.out.println(timestamp+"****************************");
             DateTimeFormatter isoFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
             return LocalDateTime.parse(timestamp, isoFormatter);
         }catch (Exception exception){

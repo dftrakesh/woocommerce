@@ -46,9 +46,9 @@ public class WooCommerceSdk {
 
     @SneakyThrows
     protected <T> T getRequestWrapped(HttpRequest request, Class<T> tClass) {
-
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenComposeAsync(response -> tryResend(client, request, HttpResponse.BodyHandlers.ofString(), response, 1))
+                .thenComposeAsync(response -> tryResend(client, request, HttpResponse.BodyHandlers.ofString(), response,
+                        1))
                 .thenApplyAsync(stringHttpResponse -> {
                     System.out.println("body: " + stringHttpResponse.body());
                     return stringHttpResponse.body();
@@ -64,7 +64,6 @@ public class WooCommerceSdk {
 
     @SneakyThrows
     protected void addParameters(URIBuilder uriBuilder, HashMap<String, String> params) {
-
         if (params == null || params.isEmpty()) return;
 
         for (String key : params.keySet()) {
