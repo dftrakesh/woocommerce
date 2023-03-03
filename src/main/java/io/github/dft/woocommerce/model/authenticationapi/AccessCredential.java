@@ -14,12 +14,10 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccessCredential {
-
     private String shopDomain;
     private String keyId;
     private String userId;
     private String consumerKey;
     private String consumerSecret;
     private String keyPermissions;
-
 }
