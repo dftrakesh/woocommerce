@@ -13,12 +13,9 @@ import java.util.HashMap;
 import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceCustomers extends WooCommerceSdk{
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     public WooCommerceCustomers() {
         super();
     }
-
 
     @SneakyThrows
     public CustomerWrapper getAllCustomers(String storeDomain,HashMap<String, String> params){
