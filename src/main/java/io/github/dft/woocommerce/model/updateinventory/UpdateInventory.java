@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateInventory {
-    private int stockQuantity;
+    private Integer stockQuantity;
     private String stockStatus;
-    private boolean manageStock;
+    private Boolean manageStock;
 }

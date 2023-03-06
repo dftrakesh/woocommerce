@@ -12,9 +12,9 @@ import lombok.Data;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Downloads {
     private File file;
-    private int orderId;
+    private Integer orderId;
     private Links links;
-    private int productId;
+    private Integer productId;
     private String orderKey;
     private String downloadId;
     private String downloadUrl;
