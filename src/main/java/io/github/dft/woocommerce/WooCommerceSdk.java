@@ -15,19 +15,18 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceSdk {
 
-    protected AccessCredential accessCredential;
     protected HttpClient client;
     private ObjectMapper objectMapper;
 
     @SneakyThrows
-    public WooCommerceSdk(AccessCredential accessCredential)  {
+    public WooCommerceSdk()  {
         client = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
-        this.accessCredential = accessCredential;
     }
 
     @SneakyThrows
-    public <T>CompletableFuture<HttpResponse<T>> tryResend(HttpClient client, HttpRequest request,
+    public <T>CompletableFuture<HttpResponse<T>> tryResend(HttpClient client,
+                                                           HttpRequest request,
                                                            HttpResponse.BodyHandler<T> handler,
                                                            HttpResponse<T> response,int count){
         if(response.statusCode() == TOO_MANY_REQUEST_EXCEPTION_CODE && count < MAX_ATTEMPTS){
@@ -45,6 +44,7 @@ public class WooCommerceSdk {
 
     @SneakyThrows
     protected <T> T getRequestWrapped(HttpRequest request, Class<T> tClass) {
+
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenComposeAsync(response -> tryResend(client, request, HttpResponse.BodyHandlers.ofString(), response, 1))
                 .thenApplyAsync(HttpResponse::body)
@@ -59,6 +59,7 @@ public class WooCommerceSdk {
 
     @SneakyThrows
     protected void addParameters(URIBuilder uriBuilder, HashMap<String, String> params) {
+
         if (params == null || params.isEmpty()) return;
 
         for (String key : params.keySet()) {
