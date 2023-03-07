@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.util.ArrayList;
 
-@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderNoteWrapper extends ArrayList<OrderNote> {
 }
