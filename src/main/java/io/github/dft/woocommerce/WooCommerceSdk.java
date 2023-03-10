@@ -1,14 +1,14 @@
 package io.github.dft.woocommerce;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import lombok.SneakyThrows;
-import org.apache.http.client.utils.URIBuilder;
 
+import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
@@ -58,12 +58,22 @@ public class WooCommerceSdk {
     }
 
     @SneakyThrows
-    protected void addParameters(URIBuilder uriBuilder, HashMap<String, String> params) {
+    protected URI addParameters(URI uri, HashMap<String, String> params) {
 
-        if (params == null || params.isEmpty()) return;
+        String query = uri.getQuery();
+        StringBuilder builder = new StringBuilder();
 
-        for (String key : params.keySet()) {
-            uriBuilder.addParameter(key, params.get(key));
+        if (query != null)
+            builder.append(query);
+
+        for (Map.Entry<String,String> entry: params.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if(!builder.toString().isEmpty())
+                builder.append("&");
+            builder.append(key.concat("=").concat(value));
         }
+
+        return new URI(uri.getScheme(),uri.getAuthority(),uri.getPath(),builder.toString(), uri.getFragment());
     }
 }

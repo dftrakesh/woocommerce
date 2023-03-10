@@ -1,7 +1,6 @@
 package io.github.dft.woocommerce.constatndcode;
 
 public interface ConstantCode {
-    String HTTPS = "https://";
     String API_BASE_END_POINT = "/wp-json/wc/v3";
     String ORDER_ENDPOINT = "/orders";
     String REFUND_ENDPOINT = "/refunds";
