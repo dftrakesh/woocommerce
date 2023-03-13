@@ -1,4 +1,4 @@
-package io.github.dft.woocommerce.model.webhookapi;
+package io.github.dft.woocommerce.model.orderapi.ordernote;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -6,5 +6,5 @@ import lombok.Data;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WebHookWrapper extends ArrayList<WebHook> {
+public class OrderNoteWrapper extends ArrayList<OrderNote> {
 }
