@@ -1,7 +1,7 @@
 package io.github.dft.woocommerce.constatndcode;
 
 public interface ConstantCode {
-    String API_BASE_END_POINT = "/wp-json/wc/v3";
+    String API_BASE_END_POINT = "https://www.woora.a2hosted.com/wp-json/wc/v3";
     String ORDER_ENDPOINT = "/orders";
     String REFUND_ENDPOINT = "/refunds";
     String SLASH_CHARACTER = "/";
@@ -9,6 +9,14 @@ public interface ConstantCode {
     String CUSTOMER_ENDPOINT = "/customers";
     String ORDER_NOTE_ENDPOINT = "/notes";
     String WEBHOOK_ENDPOINT = "/webhooks";
+    String  REPORT_ENDPOINT = "/reports";
+    String SALES_ENDPOINT = "sales";
+    String TOP_SELLER_ENDPOINT = "top_sellers";
+    String COUPONS_ENDPOINT = "coupons/totals";
+    String CUSTOMERS_ENDPOINT = "customers/totals";
+    String ORDERS_ENDPOINT = "orders/totals";
+    String PRODUCTS_ENDPOINT = "products/totals";
+    String REVIEWS_ENDPOINT = "reviews/totals";
     String PRODUCT_ENDPOINT = "/products";
     String TERMS_ENDPOINT = "/terms";
     String PRODUCT_VARIATION_ENDPOINT = "/variations";
