@@ -47,7 +47,10 @@ public class WooCommerceSdk {
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenComposeAsync(response -> tryResend(client, request, HttpResponse.BodyHandlers.ofString(), response, 1))
-                .thenApplyAsync(HttpResponse::body)
+                .thenApplyAsync(stringHttpResponse -> {
+                    System.out.println("body: " + stringHttpResponse.body());
+                    return stringHttpResponse.body();
+                })
                 .thenApplyAsync(responseBody -> convertBody(responseBody, tClass))
                 .get();
     }
