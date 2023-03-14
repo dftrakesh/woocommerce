@@ -18,6 +18,7 @@ public interface ConstantCode {
     String TAG_ENDPOINT = "/products/tags";
     String REVIEW_ENDPOINT = "/products/reviews";
     String CONTENT_TYPE_VALUE = "application/json";
+    String AUTHORIZATION = "Authorization";
 
     int MAX_ATTEMPTS = 50;
     int TIME_OUT_DURATION = 3000;
