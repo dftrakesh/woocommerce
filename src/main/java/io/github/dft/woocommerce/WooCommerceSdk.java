@@ -2,6 +2,8 @@ package io.github.dft.woocommerce;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.SneakyThrows;
 
 import java.net.URI;
@@ -13,10 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.MAX_ATTEMPTS;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.TIME_OUT_DURATION;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.TOO_MANY_REQUEST_EXCEPTION_CODE;
+import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
+@AllArgsConstructor
+@Builder(toBuilder = true)
 public class WooCommerceSdk {
 
     protected HttpClient client;
@@ -24,21 +26,21 @@ public class WooCommerceSdk {
     protected AccessCredential accessCredential;
 
     @SneakyThrows
-    public WooCommerceSdk(AccessCredential accessCredential) {
-        this.accessCredential = accessCredential;
+    public WooCommerceSdk(AccessCredential accessCredential)  {
         client = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
+        this.accessCredential = accessCredential;
     }
 
     @SneakyThrows
-    public <T> CompletableFuture<HttpResponse<T>> tryResend(HttpClient client,
-                                                            HttpRequest request,
-                                                            HttpResponse.BodyHandler<T> handler,
-                                                            HttpResponse<T> response, int count) {
-        if (response.statusCode() == TOO_MANY_REQUEST_EXCEPTION_CODE && count < MAX_ATTEMPTS) {
+    public <T>CompletableFuture<HttpResponse<T>> tryResend(HttpClient client,
+                                                           HttpRequest request,
+                                                           HttpResponse.BodyHandler<T> handler,
+                                                           HttpResponse<T> response,int count){
+        if(response.statusCode() == TOO_MANY_REQUEST_EXCEPTION_CODE && count < MAX_ATTEMPTS){
             Thread.sleep(TIME_OUT_DURATION);
-            return client.sendAsync(request, handler)
-                    .thenComposeAsync(resp -> tryResend(client, request, handler, resp, count + 1));
+            return client.sendAsync(request,handler)
+                    .thenComposeAsync(resp -> tryResend(client,request,handler,resp,count+1));
         }
         return CompletableFuture.completedFuture(response);
     }
@@ -72,25 +74,31 @@ public class WooCommerceSdk {
         if (query != null)
             builder.append(query);
 
-        for (Map.Entry<String, String> entry : params.entrySet()) {
+        for (Map.Entry<String,String> entry: params.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            if (!builder.toString().isEmpty())
+            if(!builder.toString().isEmpty())
                 builder.append("&");
             builder.append(key.concat("=").concat(value));
         }
 
-        return new URI(uri.getScheme(), uri.getAuthority(), uri.getPath(), builder.toString(), uri.getFragment());
+        return new URI(uri.getScheme(),uri.getAuthority(),uri.getPath(),builder.toString(), uri.getFragment());
     }
 
-    protected HttpRequest getRequest(URI uri) {
-
-        String originalInput = accessCredential.getConsumerKey().concat(":").concat(accessCredential.getConsumerSecret());
-        String headerString = Base64.getEncoder().encodeToString(originalInput.getBytes());
-
+    @SneakyThrows
+    protected HttpRequest get(URI uri){
         return HttpRequest.newBuilder(uri)
                 .GET()
-                .header("Authorization", "Basic ".concat(headerString))
+                .header(AUTHORIZATION,header().toString())
                 .build();
+    }
+
+    @SneakyThrows
+    protected StringBuilder header(){
+        StringBuilder originalInput = new StringBuilder(accessCredential.getConsumerKey())
+                .append(":")
+                .append(accessCredential.getConsumerSecret());
+        return new StringBuilder("Basic ")
+                .append(Base64.getEncoder().encodeToString(originalInput.toString().getBytes()));
     }
 }

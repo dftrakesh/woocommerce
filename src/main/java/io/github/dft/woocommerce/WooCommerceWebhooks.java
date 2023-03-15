@@ -50,6 +50,7 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
         uri = addParameters(uri, params);
         HttpRequest request = HttpRequest.newBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(getString(webHook)))
+                .header("Content-Type",CONTENT_TYPE_VALUE)
                 .build();
 
         return getRequestWrapped(request, WebHook.class);
@@ -62,6 +63,7 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
         uri = addParameters(uri, params);
         HttpRequest request = HttpRequest.newBuilder(uri)
                 .PUT(HttpRequest.BodyPublishers.ofString(getString(webHook)))
+                .header("Content-Type",CONTENT_TYPE_VALUE)
                 .build();
 
         return getRequestWrapped(request, WebHook.class);
