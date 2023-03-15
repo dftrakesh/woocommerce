@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.customerapi.Customer;
 import io.github.dft.woocommerce.model.customerapi.CustomerWrapper;
 import lombok.SneakyThrows;
@@ -12,8 +13,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceCustomers extends WooCommerceSdk {
 
-    public WooCommerceCustomers() {
-        super();
+    public WooCommerceCustomers(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.productapi.productshippingclass.ProductShipping;
 import io.github.dft.woocommerce.model.productapi.productshippingclass.ProductShippingWrapper;
 import lombok.SneakyThrows;
@@ -13,8 +14,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceProductShippingClasses extends WooCommerceSdk {
 
-    public WooCommerceProductShippingClasses() {
-        super();
+    public WooCommerceProductShippingClasses(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.productapi.productcategories.ProductCategory;
 import io.github.dft.woocommerce.model.productapi.productcategories.ProductCategoryWrapper;
 import lombok.SneakyThrows;
@@ -13,8 +14,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceProductCategories extends WooCommerceSdk {
 
-    public WooCommerceProductCategories() {
-        super();
+    public WooCommerceProductCategories(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

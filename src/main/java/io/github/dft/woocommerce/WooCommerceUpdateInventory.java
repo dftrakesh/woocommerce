@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.productapi.Product;
 import io.github.dft.woocommerce.model.updateinventory.UpdateInventory;
 import lombok.SneakyThrows;
@@ -13,8 +14,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceUpdateInventory extends WooCommerceSdk{
 
-    public WooCommerceUpdateInventory() {
-        super();
+    public WooCommerceUpdateInventory(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

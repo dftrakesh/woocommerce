@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.productapi.productreviews.ProductReview;
 import io.github.dft.woocommerce.model.productapi.productreviews.ProductReviewWrapper;
 import lombok.SneakyThrows;
@@ -13,8 +14,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceProductReviews extends WooCommerceSdk {
 
-    public WooCommerceProductReviews() {
-        super();
+    public WooCommerceProductReviews(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

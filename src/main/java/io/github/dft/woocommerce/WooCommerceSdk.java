@@ -1,6 +1,7 @@
 package io.github.dft.woocommerce;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.SneakyThrows;
@@ -9,6 +10,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -21,11 +23,13 @@ public class WooCommerceSdk {
 
     protected HttpClient client;
     private ObjectMapper objectMapper;
+    protected AccessCredential accessCredential;
 
     @SneakyThrows
-    public WooCommerceSdk()  {
+    public WooCommerceSdk(AccessCredential accessCredential)  {
         client = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
+        this.accessCredential = accessCredential;
     }
 
     @SneakyThrows
@@ -82,10 +86,19 @@ public class WooCommerceSdk {
     }
 
     @SneakyThrows
-    protected HttpRequest get(URI uri,String headerString){
+    protected HttpRequest get(URI uri){
         return HttpRequest.newBuilder(uri)
                 .GET()
-                .header(AUTHORIZATION,headerString)
+                .header(AUTHORIZATION,header().toString())
                 .build();
+    }
+
+    @SneakyThrows
+    protected StringBuilder header(){
+        StringBuilder originalInput = new StringBuilder(accessCredential.getConsumerKey())
+                .append(":")
+                .append(accessCredential.getConsumerSecret());
+        return new StringBuilder("Basic ")
+                .append(Base64.getEncoder().encodeToString(originalInput.toString().getBytes()));
     }
 }

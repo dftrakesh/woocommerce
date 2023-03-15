@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.webhookapi.WebHook;
 import io.github.dft.woocommerce.model.webhookapi.WebHookWrapper;
 import lombok.SneakyThrows;
@@ -12,8 +13,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceWebhooks extends WooCommerceSdk {
 
-    public WooCommerceWebhooks() {
-        super();
+    public WooCommerceWebhooks(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

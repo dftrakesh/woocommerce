@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.productapi.productattributes.ProductAttribute;
 import io.github.dft.woocommerce.model.productapi.productattributes.ProductAttributeWrapper;
 import lombok.SneakyThrows;
@@ -13,8 +14,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceProductAttributes extends WooCommerceSdk {
 
-    public WooCommerceProductAttributes() {
-        super();
+    public WooCommerceProductAttributes(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

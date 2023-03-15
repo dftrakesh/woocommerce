@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.storeinformationapi.StoreInformation;
 import lombok.SneakyThrows;
 
@@ -12,8 +13,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.STORE_INFORMA
 
 public class WooCommerceStoreInformation extends WooCommerceSdk{
 
-    public WooCommerceStoreInformation() {
-        super();
+    public WooCommerceStoreInformation(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

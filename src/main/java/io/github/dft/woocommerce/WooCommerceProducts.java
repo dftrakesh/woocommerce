@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.productapi.Product;
 import io.github.dft.woocommerce.model.productapi.ProductWrapper;
 import io.github.dft.woocommerce.model.updateinventory.UpdateInventory;
@@ -13,17 +14,15 @@ import java.util.HashMap;
 import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceProducts extends WooCommerceSdk {
-    public WooCommerceProducts() {
-        super();
+    public WooCommerceProducts(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows
     public ProductWrapper getAllProducts(String storeDomain, HashMap<String, String> params) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
                 .concat(PRODUCT_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = get(uri,headerString);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductWrapper.class);
     }

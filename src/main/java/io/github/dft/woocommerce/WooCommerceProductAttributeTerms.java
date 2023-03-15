@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.productapi.productattributesterms.ProductAttributeTerm;
 import io.github.dft.woocommerce.model.productapi.productattributesterms.ProductAttributeTermWrapper;
 import lombok.SneakyThrows;
@@ -13,8 +14,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceProductAttributeTerms extends WooCommerceSdk {
 
-    public WooCommerceProductAttributeTerms() {
-        super();
+    public WooCommerceProductAttributeTerms(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

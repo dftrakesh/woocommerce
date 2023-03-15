@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.orderapi.Order;
 import io.github.dft.woocommerce.model.orderapi.OrderWrapper;
 import lombok.SneakyThrows;
@@ -12,8 +13,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceOrders extends WooCommerceSdk {
 
-    public WooCommerceOrders() {
-        super();
+    public WooCommerceOrders(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.productapi.productvariations.ProductVariation;
 import io.github.dft.woocommerce.model.productapi.productvariations.ProductVariationWrapper;
 import lombok.SneakyThrows;
@@ -13,8 +14,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceProductVariations extends WooCommerceSdk {
 
-    public WooCommerceProductVariations() {
-        super();
+    public WooCommerceProductVariations(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

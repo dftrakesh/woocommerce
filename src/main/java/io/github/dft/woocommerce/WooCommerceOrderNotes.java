@@ -1,6 +1,7 @@
 package io.github.dft.woocommerce;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.orderapi.ordernote.OrderNote;
 import io.github.dft.woocommerce.model.orderapi.ordernote.OrderNoteWrapper;
 import lombok.SneakyThrows;
@@ -13,8 +14,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceOrderNotes extends WooCommerceSdk {
 
-    public WooCommerceOrderNotes() {
-        super();
+    public WooCommerceOrderNotes(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.productapi.producttags.ProductTag;
 import io.github.dft.woocommerce.model.productapi.producttags.ProductTagWrapper;
 import lombok.SneakyThrows;
@@ -13,8 +14,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceProductTags extends WooCommerceSdk {
 
-    public WooCommerceProductTags() {
-        super();
+    public WooCommerceProductTags(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows

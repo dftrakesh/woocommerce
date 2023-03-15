@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.orderapi.orderrefund.OrderRefund;
 import io.github.dft.woocommerce.model.orderapi.orderrefund.OrderRefundWrapper;
 import lombok.SneakyThrows;
@@ -12,8 +13,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceOrderRefunds extends WooCommerceSdk{
 
-    public WooCommerceOrderRefunds() {
-        super();
+    public WooCommerceOrderRefunds(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows
