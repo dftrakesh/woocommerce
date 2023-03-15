@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
 
 public class WooCommerceProductAttributes extends WooCommerceSdk {
 
@@ -62,7 +62,7 @@ public class WooCommerceProductAttributes extends WooCommerceSdk {
     @SneakyThrows
     public ProductAttribute updateProductAttribute(String storeDomain, HashMap<String, String> params, String id, ProductAttribute productAttribute) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(SLASH_CHARACTER) + id)));
+                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         HttpRequest request = HttpRequest.newBuilder(uri)
@@ -77,7 +77,7 @@ public class WooCommerceProductAttributes extends WooCommerceSdk {
     @SneakyThrows
     public ProductAttribute deleteProductAttribute(String storeDomain, HashMap<String, String> params, String id) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(SLASH_CHARACTER) + id)));
+                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         params.put("force", "true");

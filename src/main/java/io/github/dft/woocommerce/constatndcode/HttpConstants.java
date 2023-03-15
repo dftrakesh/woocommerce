@@ -1,10 +1,10 @@
 package io.github.dft.woocommerce.constatndcode;
 
-public interface ConstantCode {
+public interface HttpConstants {
     String API_BASE_END_POINT = "/wp-json/wc/v3";
     String ORDER_ENDPOINT = "/orders";
     String REFUND_ENDPOINT = "/refunds";
-    String SLASH_CHARACTER = "/";
+    String FORWARD_SLASH_CHARACTER = "/";
     String STORE_INFORMATION_ENDPOINT = "/system_status";
     String CUSTOMER_ENDPOINT = "/customers";
     String ORDER_NOTE_ENDPOINT = "/notes";
@@ -25,7 +25,7 @@ public interface ConstantCode {
     String SHIPPING_ENDPOINT = "/products/shipping_classes";
     String TAG_ENDPOINT = "/products/tags";
     String REVIEW_ENDPOINT = "/products/reviews";
-    String CONTENT_TYPE_VALUE = "application/json";
+    String CONTENT_TYPE_APPLICATION_JSON = "application/json";
     String AUTHORIZATION = "Authorization";
 
     int MAX_ATTEMPTS = 50;

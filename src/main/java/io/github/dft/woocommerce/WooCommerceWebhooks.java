@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.constatndcode.HttpConstants;
 import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.webhookapi.WebHook;
 import io.github.dft.woocommerce.model.webhookapi.WebHookWrapper;
@@ -9,9 +10,9 @@ import java.net.URI;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.API_BASE_END_POINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.SLASH_CHARACTER;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.WEBHOOK_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.API_BASE_END_POINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.FORWARD_SLASH_CHARACTER;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.WEBHOOK_ENDPOINT;
 
 public class WooCommerceWebhooks extends WooCommerceSdk {
 
@@ -34,7 +35,7 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
     @SneakyThrows
     public WebHook getWebHookById(String storeDomain, HashMap<String, String> params, Integer id) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(WEBHOOK_ENDPOINT.concat(SLASH_CHARACTER) + id)));
+                .concat(WEBHOOK_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
         uri = addParameters(uri, params);
         HttpRequest request = HttpRequest.newBuilder(uri)
                 .GET()
@@ -50,7 +51,7 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
         uri = addParameters(uri, params);
         HttpRequest request = HttpRequest.newBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(getString(webHook)))
-                .header("Content-Type",CONTENT_TYPE_VALUE)
+                .header("Content-Type", HttpConstants.CONTENT_TYPE_APPLICATION_JSON)
                 .build();
 
         return getRequestWrapped(request, WebHook.class);
@@ -59,11 +60,11 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
     @SneakyThrows
     public WebHook updateWebhook(String storeDomain, HashMap<String, String> params, Integer webhookId, WebHook webHook) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(WEBHOOK_ENDPOINT.concat(SLASH_CHARACTER) + webhookId)));
+                .concat(WEBHOOK_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + webhookId)));
         uri = addParameters(uri, params);
         HttpRequest request = HttpRequest.newBuilder(uri)
                 .PUT(HttpRequest.BodyPublishers.ofString(getString(webHook)))
-                .header("Content-Type",CONTENT_TYPE_VALUE)
+                .header("Content-Type", HttpConstants.CONTENT_TYPE_APPLICATION_JSON)
                 .build();
 
         return getRequestWrapped(request, WebHook.class);
@@ -72,7 +73,7 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
     @SneakyThrows
     public WebHook deleteWebhook(String storeDomain, HashMap<String, String> params, Integer id) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(WEBHOOK_ENDPOINT.concat(SLASH_CHARACTER) + id)));
+                .concat(WEBHOOK_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
         params.put("force", "true");
         uri = addParameters(uri, params);
         HttpRequest request = HttpRequest.newBuilder(uri)

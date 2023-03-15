@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
 
 public class WooCommerceProductVariations extends WooCommerceSdk {
 
@@ -21,7 +21,7 @@ public class WooCommerceProductVariations extends WooCommerceSdk {
     @SneakyThrows
     public ProductVariationWrapper getAllProductVariations(String storeDomain,HashMap<String, String> params, Integer productId) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(SLASH_CHARACTER) + productId)
+                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productId)
                 .concat(PRODUCT_VARIATION_ENDPOINT)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
@@ -36,8 +36,8 @@ public class WooCommerceProductVariations extends WooCommerceSdk {
     @SneakyThrows
     public ProductVariation getProductVariationById(String storeDomain,HashMap<String, String> params, Integer productId, String productVariationId) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(SLASH_CHARACTER) + productId)
-                .concat(PRODUCT_VARIATION_ENDPOINT.concat(SLASH_CHARACTER) + productVariationId)));
+                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productId)
+                .concat(PRODUCT_VARIATION_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productVariationId)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         HttpRequest request = HttpRequest.newBuilder(uri)
@@ -51,7 +51,7 @@ public class WooCommerceProductVariations extends WooCommerceSdk {
     @SneakyThrows
     public ProductVariation createProductVariation(String storeDomain,HashMap<String, String> params, Integer productId, ProductVariation productVariation) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(SLASH_CHARACTER) + productId)
+                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productId)
                 .concat(PRODUCT_VARIATION_ENDPOINT)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
@@ -67,8 +67,8 @@ public class WooCommerceProductVariations extends WooCommerceSdk {
     @SneakyThrows
     public ProductVariation updateProductVariation(String storeDomain,HashMap<String, String> params,Integer productId, String productVariationId, ProductVariation productVariation) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(SLASH_CHARACTER) + productId)
-                .concat(PRODUCT_VARIATION_ENDPOINT.concat(SLASH_CHARACTER) + productVariationId)));
+                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productId)
+                .concat(PRODUCT_VARIATION_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productVariationId)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         HttpRequest request = HttpRequest.newBuilder(uri)
@@ -83,8 +83,8 @@ public class WooCommerceProductVariations extends WooCommerceSdk {
     @SneakyThrows
     public ProductVariation deleteProductVariation(String storeDomain,HashMap<String, String> params,Integer productId, String productVariationId) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(SLASH_CHARACTER) + productId)
-                .concat(PRODUCT_VARIATION_ENDPOINT.concat(SLASH_CHARACTER) + productVariationId)));
+                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productId)
+                .concat(PRODUCT_VARIATION_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productVariationId)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         params.put("force","true");

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
 
 @AllArgsConstructor
 @Builder(toBuilder = true)
@@ -95,10 +95,10 @@ public class WooCommerceSdk {
 
     @SneakyThrows
     protected StringBuilder header(){
-        StringBuilder originalInput = new StringBuilder(accessCredential.getConsumerKey())
-                .append(":")
-                .append(accessCredential.getConsumerSecret());
+        String originalInput = accessCredential.getConsumerKey() +
+                ":" +
+                accessCredential.getConsumerSecret();
         return new StringBuilder("Basic ")
-                .append(Base64.getEncoder().encodeToString(originalInput.toString().getBytes()));
+                .append(Base64.getEncoder().encodeToString(originalInput.getBytes()));
     }
 }

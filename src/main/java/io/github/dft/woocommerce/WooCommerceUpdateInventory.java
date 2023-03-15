@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
 
 public class WooCommerceUpdateInventory extends WooCommerceSdk{
 
@@ -21,7 +21,7 @@ public class WooCommerceUpdateInventory extends WooCommerceSdk{
     @SneakyThrows
     public Product updateInventory(String storeDomain, HashMap<String, String> params, Integer productID, UpdateInventory updateInventory) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(SLASH_CHARACTER) + productID)));
+                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productID)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         HttpRequest request = HttpRequest.newBuilder(uri)

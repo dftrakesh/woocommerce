@@ -8,8 +8,8 @@ import java.net.URI;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.API_BASE_END_POINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.STORE_INFORMATION_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.API_BASE_END_POINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.STORE_INFORMATION_ENDPOINT;
 
 public class WooCommerceStoreInformation extends WooCommerceSdk {
 

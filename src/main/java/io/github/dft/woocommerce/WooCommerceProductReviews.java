@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
 
 public class WooCommerceProductReviews extends WooCommerceSdk {
 
@@ -35,7 +35,7 @@ public class WooCommerceProductReviews extends WooCommerceSdk {
     @SneakyThrows
     public ProductReview getProductReviewById(String storeDomain, HashMap<String, String> params, String id) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REVIEW_ENDPOINT.concat(SLASH_CHARACTER) + id)));
+                .concat(REVIEW_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         HttpRequest request = HttpRequest.newBuilder(uri)
@@ -63,7 +63,7 @@ public class WooCommerceProductReviews extends WooCommerceSdk {
     @SneakyThrows
     public ProductReview updateProductReview(String storeDomain, HashMap<String, String> params, String id, ProductReview productReview) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REVIEW_ENDPOINT.concat(SLASH_CHARACTER) + id)));
+                .concat(REVIEW_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         HttpRequest request = HttpRequest.newBuilder(uri)
@@ -78,7 +78,7 @@ public class WooCommerceProductReviews extends WooCommerceSdk {
     @SneakyThrows
     public ProductReview deleteProductReview(String storeDomain, HashMap<String, String> params, String id) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REVIEW_ENDPOINT.concat(SLASH_CHARACTER) + id)));
+                .concat(REVIEW_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         params.put("force", "true");

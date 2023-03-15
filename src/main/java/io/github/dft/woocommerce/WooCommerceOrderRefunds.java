@@ -9,10 +9,10 @@ import java.net.URI;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.API_BASE_END_POINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.ORDER_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.REFUND_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.SLASH_CHARACTER;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.API_BASE_END_POINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.ORDER_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.REFUND_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.FORWARD_SLASH_CHARACTER;
 
 public class WooCommerceOrderRefunds extends WooCommerceSdk {
 
@@ -23,7 +23,7 @@ public class WooCommerceOrderRefunds extends WooCommerceSdk {
     @SneakyThrows
     public OrderRefundWrapper getAllOrderRefunds(String storeDomain, HashMap<String, String> params, Integer orderId) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ORDER_ENDPOINT.concat(SLASH_CHARACTER) + orderId)
+                .concat(ORDER_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + orderId)
                 .concat(REFUND_ENDPOINT)));
         uri = addParameters(uri, params);
         HttpRequest request = HttpRequest.newBuilder(uri)
@@ -36,8 +36,8 @@ public class WooCommerceOrderRefunds extends WooCommerceSdk {
     @SneakyThrows
     public OrderRefund getOrderRefundById(String storeDomain, HashMap<String, String> params, Integer orderId, Integer refundId) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ORDER_ENDPOINT.concat(SLASH_CHARACTER) + orderId)
-                .concat((REFUND_ENDPOINT.concat(SLASH_CHARACTER) + refundId))));
+                .concat(ORDER_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + orderId)
+                .concat((REFUND_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + refundId))));
         uri = addParameters(uri, params);
         HttpRequest request = HttpRequest.newBuilder(uri)
                 .GET()

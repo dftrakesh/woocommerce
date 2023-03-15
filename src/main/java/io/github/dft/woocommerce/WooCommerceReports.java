@@ -13,16 +13,16 @@ import lombok.SneakyThrows;
 import java.net.URI;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.API_BASE_END_POINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.COUPONS_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.CUSTOMERS_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.ORDERS_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.PRODUCTS_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.REPORT_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.REVIEWS_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.SALES_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.SLASH_CHARACTER;
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.TOP_SELLER_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.API_BASE_END_POINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.COUPONS_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.CUSTOMERS_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.ORDERS_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.PRODUCTS_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.REPORT_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.REVIEWS_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.SALES_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.FORWARD_SLASH_CHARACTER;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.TOP_SELLER_ENDPOINT;
 
 public class WooCommerceReports extends WooCommerceSdk {
 
@@ -35,60 +35,60 @@ public class WooCommerceReports extends WooCommerceSdk {
     public ReportsWrapper getAllReports(String storeDomain, HashMap<String, String> params) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat("/reports")));
         uri = addParameters(uri, params);
-        return getRequestWrapped(getRequest(uri), ReportsWrapper.class);
+        return getRequestWrapped(get(uri), ReportsWrapper.class);
     }
 
 
     @SneakyThrows
     public SalesReportWrapper getSalesReport(String storeDomain, HashMap<String, String> params) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat(REPORT_ENDPOINT.concat(SLASH_CHARACTER) + SALES_ENDPOINT)));
+        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat(REPORT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + SALES_ENDPOINT)));
         uri = addParameters(uri, params);
-        return getRequestWrapped(getRequest(uri), SalesReportWrapper.class);
+        return getRequestWrapped(get(uri), SalesReportWrapper.class);
     }
 
     @SneakyThrows
     public SalesReportWrapper getSellerReport(String storeDomain, HashMap<String, String> params) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REPORT_ENDPOINT.concat(SLASH_CHARACTER) + TOP_SELLER_ENDPOINT)));
+                .concat(REPORT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + TOP_SELLER_ENDPOINT)));
         uri = addParameters(uri, params);
-        return getRequestWrapped(getRequest(uri), SalesReportWrapper.class);
+        return getRequestWrapped(get(uri), SalesReportWrapper.class);
     }
 
     @SneakyThrows
     public TotalCouponWrapper getTotalCoupon(String storeDomain, HashMap<String, String> params) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REPORT_ENDPOINT.concat(SLASH_CHARACTER) + (COUPONS_ENDPOINT))));
+                .concat(REPORT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + (COUPONS_ENDPOINT))));
         uri = addParameters(uri, params);
-        return getRequestWrapped(getRequest(uri), TotalCouponWrapper.class);
+        return getRequestWrapped(get(uri), TotalCouponWrapper.class);
 
     }
 
     public TotalCustomerwrapper getTotalCustomer(String storeDomain, HashMap<String, String> params) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REPORT_ENDPOINT.concat(SLASH_CHARACTER) + CUSTOMERS_ENDPOINT)));
+                .concat(REPORT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + CUSTOMERS_ENDPOINT)));
         uri = addParameters(uri, params);
-        return getRequestWrapped(getRequest(uri), TotalCustomerwrapper.class);
+        return getRequestWrapped(get(uri), TotalCustomerwrapper.class);
 
     }
 
     public TotalOrderWrapper getTotalOrder(String storeDomain, HashMap<String, String> params) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REPORT_ENDPOINT.concat(SLASH_CHARACTER) + ORDERS_ENDPOINT)));
+                .concat(REPORT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + ORDERS_ENDPOINT)));
         uri = addParameters(uri, params);
-        return getRequestWrapped(getRequest(uri), TotalOrderWrapper.class);
+        return getRequestWrapped(get(uri), TotalOrderWrapper.class);
     }
 
     public TotalProductWrapper getTotalProduct(String storeDomain, HashMap<String, String> params) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REPORT_ENDPOINT.concat(SLASH_CHARACTER) + PRODUCTS_ENDPOINT)));
+                .concat(REPORT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + PRODUCTS_ENDPOINT)));
         uri = addParameters(uri, params);
-        return getRequestWrapped(getRequest(uri), TotalProductWrapper.class);
+        return getRequestWrapped(get(uri), TotalProductWrapper.class);
     }
 
     public TotalReviewWrapper getTotalReview(String storeDomain, HashMap<String, String> params) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REPORT_ENDPOINT.concat(SLASH_CHARACTER) + REVIEWS_ENDPOINT)));
+                .concat(REPORT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + REVIEWS_ENDPOINT)));
         uri = addParameters(uri, params);
-        return getRequestWrapped(getRequest(uri), TotalReviewWrapper.class);
+        return getRequestWrapped(get(uri), TotalReviewWrapper.class);
     }
 }

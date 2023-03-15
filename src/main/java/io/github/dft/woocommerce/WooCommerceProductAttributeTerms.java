@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
 
 public class WooCommerceProductAttributeTerms extends WooCommerceSdk {
 
@@ -21,7 +21,7 @@ public class WooCommerceProductAttributeTerms extends WooCommerceSdk {
     @SneakyThrows
     public ProductAttributeTermWrapper getAllProductAttributeTerms(String storeDomain, HashMap<String, String> params, String productAttributeId) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(SLASH_CHARACTER) + productAttributeId)
+                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeId)
                 .concat(TERMS_ENDPOINT)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
@@ -38,8 +38,8 @@ public class WooCommerceProductAttributeTerms extends WooCommerceSdk {
                                                             String productAttributeId,
                                                             String productAttributeTermId) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(SLASH_CHARACTER) + productAttributeId)
-                .concat(TERMS_ENDPOINT.concat(SLASH_CHARACTER) + productAttributeTermId)));
+                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeId)
+                .concat(TERMS_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeTermId)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         HttpRequest request = HttpRequest.newBuilder(uri)
@@ -54,7 +54,7 @@ public class WooCommerceProductAttributeTerms extends WooCommerceSdk {
     public ProductAttributeTerm createProductAttributeTerm(String storeDomain, HashMap<String, String> params, String productAttributeId,
                                                            ProductAttributeTerm productAttributeTerm) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(SLASH_CHARACTER) + productAttributeId)
+                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeId)
                 .concat(TERMS_ENDPOINT)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
@@ -73,8 +73,8 @@ public class WooCommerceProductAttributeTerms extends WooCommerceSdk {
                                                            String productAttributeTermId,
                                                            ProductAttributeTerm productAttributeTerm) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(SLASH_CHARACTER) + productAttributeId)
-                .concat(TERMS_ENDPOINT.concat(SLASH_CHARACTER) + productAttributeTermId)));
+                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeId)
+                .concat(TERMS_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeTermId)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         HttpRequest request = HttpRequest.newBuilder(uri)
@@ -89,8 +89,8 @@ public class WooCommerceProductAttributeTerms extends WooCommerceSdk {
     @SneakyThrows
     public ProductAttributeTerm deleteProductAttributeTerm(String storeDomain, HashMap<String, String> params, String productAttributeId, String productAttributeTermId) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(SLASH_CHARACTER) + productAttributeId)
-                .concat(TERMS_ENDPOINT.concat(SLASH_CHARACTER) + productAttributeTermId)));
+                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeId)
+                .concat(TERMS_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeTermId)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
         params.put("force", "true");
