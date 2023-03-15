@@ -7,40 +7,28 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.HashMap;
-
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.API_BASE_END_POINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.ORDER_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.FORWARD_SLASH_CHARACTER;
 
 public class WooCommerceOrders extends WooCommerceSdk {
+
+    String ORDER_ENDPOINT = "/orders";
 
     public WooCommerceOrders(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public Order getOrderById(String storeDomain, HashMap<String, String> params, Integer id) {
-
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ORDER_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .build();
+    public Order getOrderById(String storeDomain, Integer id) {
+        String endpoint = ORDER_ENDPOINT.concat("/").concat(String.valueOf(id));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, Order.class);
     }
 
     @SneakyThrows
-    public OrderWrapper getAllOrders(String storeDomain, HashMap<String, String> params) {
-
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat(ORDER_ENDPOINT)));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(uri)
-                .GET()
-                .build();
+    public OrderWrapper getAllOrders(String storeDomain) {
+        URI uri = baseUrl(storeDomain, ORDER_ENDPOINT);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, OrderWrapper.class);
     }

@@ -7,28 +7,20 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Base64;
-import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
+public class WooCommerceUpdateInventory extends WooCommerceSdk {
 
-public class WooCommerceUpdateInventory extends WooCommerceSdk{
+    String PRODUCT_ENDPOINT = "/products";
 
     public WooCommerceUpdateInventory(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public Product updateInventory(String storeDomain, HashMap<String, String> params, Integer productID, UpdateInventory updateInventory) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productID)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .PUT(HttpRequest.BodyPublishers.ofString(getString(updateInventory)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public Product updateInventory(String storeDomain, Integer productID, UpdateInventory updateInventory) {
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productID));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = put(uri, getString(updateInventory));
 
         return getRequestWrapped(request, Product.class);
     }

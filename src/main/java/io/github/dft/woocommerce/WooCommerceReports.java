@@ -1,30 +1,18 @@
 package io.github.dft.woocommerce;
 
 import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
-import io.github.dft.woocommerce.model.reportapi.ReportsWrapper;
-import io.github.dft.woocommerce.model.reportapi.SalesReportWrapper;
-import io.github.dft.woocommerce.model.reportapi.TotalCouponWrapper;
-import io.github.dft.woocommerce.model.reportapi.TotalCustomerwrapper;
-import io.github.dft.woocommerce.model.reportapi.TotalOrderWrapper;
-import io.github.dft.woocommerce.model.reportapi.TotalProductWrapper;
-import io.github.dft.woocommerce.model.reportapi.TotalReviewWrapper;
+import io.github.dft.woocommerce.model.reportapi.*;
 import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.API_BASE_END_POINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.COUPONS_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.CUSTOMERS_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.ORDERS_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.PRODUCTS_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.REPORT_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.REVIEWS_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.SALES_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.FORWARD_SLASH_CHARACTER;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.TOP_SELLER_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
 
 public class WooCommerceReports extends WooCommerceSdk {
+
+    String API_BASE_END_POINT = "/wp-json/wc/v3";
+    String FORWARD_SLASH_CHARACTER = "/";
 
     public WooCommerceReports(AccessCredential accessCredential) {
         super(accessCredential);

@@ -6,26 +6,19 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.HashMap;
-
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.API_BASE_END_POINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.STORE_INFORMATION_ENDPOINT;
 
 public class WooCommerceStoreInformation extends WooCommerceSdk {
+
+    private String STORE_INFORMATION_ENDPOINT = "/system_status";
 
     public WooCommerceStoreInformation(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public StoreInformation getSystemInformation(String storeDomain, HashMap<String, String> params) {
-
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(STORE_INFORMATION_ENDPOINT)));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .build();
+    public StoreInformation getSystemInformation(String storeDomain) {
+        URI uri = baseUrl(storeDomain, STORE_INFORMATION_ENDPOINT);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, StoreInformation.class);
     }

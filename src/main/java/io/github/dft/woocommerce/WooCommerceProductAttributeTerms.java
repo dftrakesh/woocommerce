@@ -7,100 +7,62 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
-
 public class WooCommerceProductAttributeTerms extends WooCommerceSdk {
+
+    private String ATTRIBUTE_ENDPOINT = "/products/attributes";
+    private String TERMS_ENDPOINT = "/terms";
 
     public WooCommerceProductAttributeTerms(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public ProductAttributeTermWrapper getAllProductAttributeTerms(String storeDomain, HashMap<String, String> params, String productAttributeId) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeId)
-                .concat(TERMS_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductAttributeTermWrapper getAllProductAttributeTerms(String storeDomain, String productAttributeId) {
+        String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(productAttributeId).concat(TERMS_ENDPOINT);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductAttributeTermWrapper.class);
     }
 
     @SneakyThrows
-    public ProductAttributeTerm getProductAttributeTermById(String storeDomain, HashMap<String, String> params,
-                                                            String productAttributeId,
+    public ProductAttributeTerm getProductAttributeTermById(String storeDomain, String productAttributeId,
                                                             String productAttributeTermId) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeId)
-                .concat(TERMS_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeTermId)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+        String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(productAttributeId).concat(TERMS_ENDPOINT).concat("/").concat(productAttributeTermId);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductAttributeTerm.class);
     }
 
     @SneakyThrows
-    public ProductAttributeTerm createProductAttributeTerm(String storeDomain, HashMap<String, String> params, String productAttributeId,
+    public ProductAttributeTerm createProductAttributeTerm(String storeDomain, String productAttributeId,
                                                            ProductAttributeTerm productAttributeTerm) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeId)
-                .concat(TERMS_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .POST(HttpRequest.BodyPublishers.ofString(getString(productAttributeTerm)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+        String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(productAttributeId).concat(TERMS_ENDPOINT);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = post(uri, getString(productAttributeTerm));
 
         return getRequestWrapped(request, ProductAttributeTerm.class);
     }
 
     @SneakyThrows
-    public ProductAttributeTerm updateProductAttributeTerm(String storeDomain, HashMap<String, String> params,
-                                                           String productAttributeId,
+    public ProductAttributeTerm updateProductAttributeTerm(String storeDomain, String productAttributeId,
                                                            String productAttributeTermId,
                                                            ProductAttributeTerm productAttributeTerm) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeId)
-                .concat(TERMS_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeTermId)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .PUT(HttpRequest.BodyPublishers.ofString(getString(productAttributeTerm)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+        String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(productAttributeId).concat(TERMS_ENDPOINT).concat("/").concat(productAttributeTermId);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = put(uri, getString(productAttributeTerm));
 
         return getRequestWrapped(request, ProductAttributeTerm.class);
     }
 
     @SneakyThrows
-    public ProductAttributeTerm deleteProductAttributeTerm(String storeDomain, HashMap<String, String> params, String productAttributeId, String productAttributeTermId) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ATTRIBUTE_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeId)
-                .concat(TERMS_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productAttributeTermId)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        params.put("force", "true");
-        params.remove("consumer_key");
-        params.remove("consumer_secret");
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .DELETE()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductAttributeTerm deleteProductAttributeTerm(String storeDomain, String productAttributeId, String productAttributeTermId) {
+        String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(productAttributeId).concat(TERMS_ENDPOINT).concat("/").concat(productAttributeTermId);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductAttributeTerm.class);
     }

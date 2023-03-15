@@ -21,6 +21,12 @@ import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
 @Builder(toBuilder = true)
 public class WooCommerceSdk {
 
+    private String API_BASE_END_POINT = "/wp-json/wc/v3";
+    private String AUTHORIZATION = "Authorization";
+    private int MAX_ATTEMPTS = 50;
+    private int TIME_OUT_DURATION = 3000;
+    private int TOO_MANY_REQUEST_EXCEPTION_CODE = 429;
+
     protected HttpClient client;
     private ObjectMapper objectMapper;
     protected AccessCredential accessCredential;
@@ -30,6 +36,59 @@ public class WooCommerceSdk {
         client = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
         this.accessCredential = accessCredential;
+    }
+
+    @SneakyThrows
+    protected URI baseUrl(String storeDomain,String endpoint){
+        return URI.create(storeDomain +
+                API_BASE_END_POINT +
+                endpoint);
+    }
+
+    @SneakyThrows
+    protected StringBuilder header(){
+        String originalInput = accessCredential.getConsumerKey() +
+                ":" +
+                accessCredential.getConsumerSecret();
+        return new StringBuilder("Basic ")
+                .append(Base64.getEncoder().encodeToString(originalInput.getBytes()));
+    }
+
+    @SneakyThrows
+    protected HttpRequest get(URI uri){
+        return HttpRequest.newBuilder(uri)
+                .GET()
+                .header(AUTHORIZATION,header().toString())
+                .build();
+    }
+
+    @SneakyThrows
+    protected HttpRequest post(URI uri,String body){
+        return HttpRequest.newBuilder(uri)
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .header(AUTHORIZATION, header().toString())
+                .header("Content-Type","application/json")
+                .build();
+    }
+
+    @SneakyThrows
+    protected HttpRequest put(URI uri,String body){
+        return HttpRequest.newBuilder(uri)
+                .PUT(HttpRequest.BodyPublishers.ofString(body))
+                .header(AUTHORIZATION, header().toString())
+                .header("Content-Type","application/json")
+                .build();
+    }
+
+    @SneakyThrows
+    protected HttpRequest delete(URI uri){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("force", "true");
+        uri = addParameters(uri, params);
+        return HttpRequest.newBuilder(uri)
+                .DELETE()
+                .header(AUTHORIZATION, header().toString())
+                .build();
     }
 
     @SneakyThrows
@@ -70,23 +129,6 @@ public class WooCommerceSdk {
         }
 
         return new URI(uri.getScheme(),uri.getAuthority(),uri.getPath(),builder.toString(), uri.getFragment());
-    }
-
-    @SneakyThrows
-    protected HttpRequest get(URI uri){
-        return HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION,header().toString())
-                .build();
-    }
-
-    @SneakyThrows
-    protected StringBuilder header(){
-        String originalInput = accessCredential.getConsumerKey() +
-                ":" +
-                accessCredential.getConsumerSecret();
-        return new StringBuilder("Basic ")
-                .append(Base64.getEncoder().encodeToString(originalInput.getBytes()));
     }
 
     @SneakyThrows

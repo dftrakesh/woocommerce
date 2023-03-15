@@ -7,88 +7,55 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
-
 public class WooCommerceProductReviews extends WooCommerceSdk {
+
+    private String REVIEW_ENDPOINT = "/products/reviews";
 
     public WooCommerceProductReviews(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public ProductReviewWrapper getAllProductReview(String storeDomain, HashMap<String, String> params) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REVIEW_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductReviewWrapper getAllProductReview(String storeDomain) {
+        URI uri = baseUrl(storeDomain, REVIEW_ENDPOINT);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductReviewWrapper.class);
     }
 
     @SneakyThrows
-    public ProductReview getProductReviewById(String storeDomain, HashMap<String, String> params, String id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REVIEW_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductReview getProductReviewById(String storeDomain, String id) {
+        String endpoint = REVIEW_ENDPOINT.concat("/").concat(id);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductReview.class);
     }
 
     @SneakyThrows
-    public ProductReview createProductReview(String storeDomain, HashMap<String, String> params, ProductReview productReview) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat(REVIEW_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .POST(HttpRequest.BodyPublishers.ofString(getString(productReview)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public ProductReview createProductReview(String storeDomain, ProductReview productReview) {
+        URI uri = baseUrl(storeDomain, REVIEW_ENDPOINT);
+        HttpRequest request = post(uri, getString(productReview));
 
         return getRequestWrapped(request, ProductReview.class);
     }
 
     @SneakyThrows
-    public ProductReview updateProductReview(String storeDomain, HashMap<String, String> params, String id, ProductReview productReview) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REVIEW_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .PUT(HttpRequest.BodyPublishers.ofString(getString(productReview)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public ProductReview updateProductReview(String storeDomain, String id, ProductReview productReview) {
+        String endpoint = REVIEW_ENDPOINT.concat("/").concat(id);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = put(uri, getString(productReview));
 
         return getRequestWrapped(request, ProductReview.class);
     }
 
     @SneakyThrows
-    public ProductReview deleteProductReview(String storeDomain, HashMap<String, String> params, String id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(REVIEW_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        params.put("force", "true");
-        params.remove("consumer_key");
-        params.remove("consumer_secret");
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .DELETE()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductReview deleteProductReview(String storeDomain, String id) {
+        String endpoint = REVIEW_ENDPOINT.concat("/").concat(id);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductReview.class);
     }
