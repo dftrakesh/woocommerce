@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.customerapi.Customer;
 import io.github.dft.woocommerce.model.customerapi.CustomerWrapper;
 import lombok.SneakyThrows;
@@ -8,12 +9,14 @@ import java.net.URI;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
+import static io.github.dft.woocommerce.constatndcode.ConstantCode.API_BASE_END_POINT;
+import static io.github.dft.woocommerce.constatndcode.ConstantCode.CUSTOMER_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.ConstantCode.SLASH_CHARACTER;
 
 public class WooCommerceCustomers extends WooCommerceSdk {
 
-    public WooCommerceCustomers() {
-        super();
+    public WooCommerceCustomers(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows
