@@ -80,4 +80,12 @@ public class WooCommerceSdk {
 
         return new URI(uri.getScheme(),uri.getAuthority(),uri.getPath(),builder.toString(), uri.getFragment());
     }
+
+    @SneakyThrows
+    protected HttpRequest get(URI uri,String headerString){
+        return HttpRequest.newBuilder(uri)
+                .GET()
+                .header(AUTHORIZATION,headerString)
+                .build();
+    }
 }

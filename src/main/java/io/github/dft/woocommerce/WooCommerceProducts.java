@@ -23,10 +23,7 @@ public class WooCommerceProducts extends WooCommerceSdk {
                 .concat(PRODUCT_ENDPOINT)));
         String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
         String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+        HttpRequest request = get(uri,headerString);
 
         return getRequestWrapped(request, ProductWrapper.class);
     }
