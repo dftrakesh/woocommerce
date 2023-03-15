@@ -1,5 +1,6 @@
 package io.github.dft.woocommerce;
 
+import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.webhookapi.WebHook;
 import io.github.dft.woocommerce.model.webhookapi.WebHookWrapper;
 import lombok.SneakyThrows;
@@ -12,8 +13,8 @@ import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
 public class WooCommerceWebhooks extends WooCommerceSdk {
 
-    public WooCommerceWebhooks() {
-        super();
+    public WooCommerceWebhooks(AccessCredential accessCredential) {
+        super(accessCredential);
     }
 
     @SneakyThrows
@@ -47,6 +48,7 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
         uri = addParameters(uri,params);
         HttpRequest request = HttpRequest.newBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(getString(webHook)))
+                .header("Content-Type",CONTENT_TYPE_VALUE)
                 .build();
 
         return getRequestWrapped(request, WebHook.class);
@@ -59,6 +61,7 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
         uri = addParameters(uri,params);
         HttpRequest request = HttpRequest.newBuilder(uri)
                 .PUT(HttpRequest.BodyPublishers.ofString(getString(webHook)))
+                .header("Content-Type",CONTENT_TYPE_VALUE)
                 .build();
 
         return getRequestWrapped(request, WebHook.class);
