@@ -9,7 +9,9 @@ import java.net.URI;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
+import static io.github.dft.woocommerce.constatndcode.ConstantCode.API_BASE_END_POINT;
+import static io.github.dft.woocommerce.constatndcode.ConstantCode.CUSTOMER_ENDPOINT;
+import static io.github.dft.woocommerce.constatndcode.ConstantCode.SLASH_CHARACTER;
 
 public class WooCommerceCustomers extends WooCommerceSdk {
 
