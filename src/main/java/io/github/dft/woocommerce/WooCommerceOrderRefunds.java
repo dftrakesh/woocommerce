@@ -7,41 +7,30 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.HashMap;
-
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.API_BASE_END_POINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.ORDER_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.REFUND_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.FORWARD_SLASH_CHARACTER;
 
 public class WooCommerceOrderRefunds extends WooCommerceSdk {
+
+    private String ORDER_ENDPOINT = "/orders";
+    private String REFUND_ENDPOINT = "/refunds";
 
     public WooCommerceOrderRefunds(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public OrderRefundWrapper getAllOrderRefunds(String storeDomain, HashMap<String, String> params, Integer orderId) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ORDER_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + orderId)
-                .concat(REFUND_ENDPOINT)));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .build();
+    public OrderRefundWrapper getAllOrderRefunds(String storeDomain, Integer orderId) {
+        String endpoint = ORDER_ENDPOINT.concat("/").concat(String.valueOf(orderId)).concat(REFUND_ENDPOINT);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, OrderRefundWrapper.class);
     }
 
     @SneakyThrows
-    public OrderRefund getOrderRefundById(String storeDomain, HashMap<String, String> params, Integer orderId, Integer refundId) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(ORDER_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + orderId)
-                .concat((REFUND_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + refundId))));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .build();
+    public OrderRefund getOrderRefundById(String storeDomain, Integer orderId, Integer refundId) {
+        String endpoint = ORDER_ENDPOINT.concat("/").concat(String.valueOf(orderId)).concat(REFUND_ENDPOINT).concat("/").concat(String.valueOf(refundId));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, OrderRefund.class);
     }

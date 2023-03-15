@@ -7,94 +7,58 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
-
 public class WooCommerceProductVariations extends WooCommerceSdk {
+
+    private String PRODUCT_ENDPOINT = "/products";
+    private String PRODUCT_VARIATION_ENDPOINT = "/variations";
 
     public WooCommerceProductVariations(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public ProductVariationWrapper getAllProductVariations(String storeDomain,HashMap<String, String> params, Integer productId) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productId)
-                .concat(PRODUCT_VARIATION_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION,headerString)
-                .build();
+    public ProductVariationWrapper getAllProductVariations(String storeDomain, Integer productId) {
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductVariationWrapper.class);
     }
 
     @SneakyThrows
-    public ProductVariation getProductVariationById(String storeDomain,HashMap<String, String> params, Integer productId, String productVariationId) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productId)
-                .concat(PRODUCT_VARIATION_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productVariationId)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION,headerString)
-                .build();
+    public ProductVariation getProductVariationById(String storeDomain, Integer productId, String productVariationId) {
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT).concat("/").concat(productVariationId);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductVariation.class);
     }
 
     @SneakyThrows
-    public ProductVariation createProductVariation(String storeDomain,HashMap<String, String> params, Integer productId, ProductVariation productVariation) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productId)
-                .concat(PRODUCT_VARIATION_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .POST(HttpRequest.BodyPublishers.ofString(getString(productVariation)))
-                .header(AUTHORIZATION,headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public ProductVariation createProductVariation(String storeDomain, Integer productId, ProductVariation productVariation) {
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = post(uri, getString(productVariation));
 
         return getRequestWrapped(request, ProductVariation.class);
     }
 
     @SneakyThrows
-    public ProductVariation updateProductVariation(String storeDomain,HashMap<String, String> params,Integer productId, String productVariationId, ProductVariation productVariation) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productId)
-                .concat(PRODUCT_VARIATION_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productVariationId)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .PUT(HttpRequest.BodyPublishers.ofString(getString(productVariation)))
-                .header(AUTHORIZATION,headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public ProductVariation updateProductVariation(String storeDomain, Integer productId, String productVariationId, ProductVariation productVariation) {
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT).concat("/").concat(productVariationId);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = put(uri, getString(productVariation));
 
         return getRequestWrapped(request, ProductVariation.class);
     }
 
     @SneakyThrows
-    public ProductVariation deleteProductVariation(String storeDomain,HashMap<String, String> params,Integer productId, String productVariationId) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productId)
-                .concat(PRODUCT_VARIATION_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productVariationId)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        params.put("force","true");
-        params.remove("consumer_key");
-        params.remove("consumer_secret");
-        uri = addParameters(uri,params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .DELETE()
-                .header(AUTHORIZATION,headerString)
-                .build();
+    public ProductVariation deleteProductVariation(String storeDomain, Integer productId, String productVariationId) {
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT).concat("/").concat(productVariationId);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductVariation.class);
     }

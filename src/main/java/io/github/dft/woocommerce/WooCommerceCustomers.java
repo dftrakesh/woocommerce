@@ -7,37 +7,27 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.HashMap;
-
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.API_BASE_END_POINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.CUSTOMER_ENDPOINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.FORWARD_SLASH_CHARACTER;
 
 public class WooCommerceCustomers extends WooCommerceSdk {
+
+    private String CUSTOMER_ENDPOINT = "/customers";
 
     public WooCommerceCustomers(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public CustomerWrapper getAllCustomers(String storeDomain, HashMap<String, String> params) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat(CUSTOMER_ENDPOINT)));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .build();
+    public CustomerWrapper getAllCustomers(String storeDomain) {
+        URI uri = baseUrl(storeDomain, CUSTOMER_ENDPOINT);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, CustomerWrapper.class);
     }
 
     @SneakyThrows
-    public Customer getCustomerById(String storeDomain, HashMap<String, String> params, Integer id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(CUSTOMER_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .build();
+    public Customer getCustomerById(String storeDomain, Integer id) {
+        URI uri = baseUrl(storeDomain, CUSTOMER_ENDPOINT.concat("/").concat(String.valueOf(id)));
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, Customer.class);
     }

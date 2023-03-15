@@ -7,89 +7,55 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
-
 public class WooCommerceProductShippingClasses extends WooCommerceSdk {
+
+    private String SHIPPING_ENDPOINT = "/products/shipping_classes";
 
     public WooCommerceProductShippingClasses(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public ProductShippingWrapper getAllProductShippingClasses(String storeDomain, HashMap<String, String> params) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(SHIPPING_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductShippingWrapper getAllProductShippingClasses(String storeDomain) {
+        URI uri = baseUrl(storeDomain, SHIPPING_ENDPOINT);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductShippingWrapper.class);
     }
 
     @SneakyThrows
-    public ProductShipping getProductShippingClassById(String storeDomain, HashMap<String, String> params, String id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(SHIPPING_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductShipping getProductShippingClassById(String storeDomain, String id) {
+        String endpoint = SHIPPING_ENDPOINT.concat("/").concat(id);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductShipping.class);
     }
 
     @SneakyThrows
-    public ProductShipping createProductShippingClass(String storeDomain, HashMap<String, String> params, ProductShipping productShipping) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(SHIPPING_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .POST(HttpRequest.BodyPublishers.ofString(getString(productShipping)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public ProductShipping createProductShippingClass(String storeDomain, ProductShipping productShipping) {
+        URI uri = baseUrl(storeDomain, SHIPPING_ENDPOINT);
+        HttpRequest request = post(uri, getString(productShipping));
 
         return getRequestWrapped(request, ProductShipping.class);
     }
 
     @SneakyThrows
-    public ProductShipping updateProductShippingClass(String storeDomain, HashMap<String, String> params, String id, ProductShipping productShipping) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(SHIPPING_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .PUT(HttpRequest.BodyPublishers.ofString(getString(productShipping)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public ProductShipping updateProductShippingClass(String storeDomain, String id, ProductShipping productShipping) {
+        String endpoint = SHIPPING_ENDPOINT.concat("/").concat(id);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = put(uri, getString(productShipping));
 
         return getRequestWrapped(request, ProductShipping.class);
     }
 
     @SneakyThrows
-    public ProductShipping deleteProductShippingClass(String storeDomain, HashMap<String, String> params, String id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(SHIPPING_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        params.put("force", "true");
-        params.remove("consumer_key");
-        params.remove("consumer_secret");
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .DELETE()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductShipping deleteProductShippingClass(String storeDomain, String id) {
+        String endpoint = SHIPPING_ENDPOINT.concat("/").concat(id);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductShipping.class);
     }

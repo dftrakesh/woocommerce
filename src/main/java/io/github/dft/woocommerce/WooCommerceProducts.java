@@ -7,84 +7,56 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
-
 public class WooCommerceProducts extends WooCommerceSdk {
+
+    private String PRODUCT_ENDPOINT = "/products";
+
     public WooCommerceProducts(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
     public ProductWrapper getAllProducts(String storeDomain, HashMap<String, String> params) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT)));
+        URI uri = baseUrl(storeDomain, PRODUCT_ENDPOINT);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductWrapper.class);
     }
 
     @SneakyThrows
-    public Product getProductById(String storeDomain, HashMap<String, String> params, Integer id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public Product getProductById(String storeDomain, Integer id) {
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(id));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, Product.class);
     }
 
 
     @SneakyThrows
-    public Product createProduct(String storeDomain, HashMap<String, String> params, Product product) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .POST(HttpRequest.BodyPublishers.ofString(getString(product)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public Product createProduct(String storeDomain, Product product) {
+        URI uri = baseUrl(storeDomain, PRODUCT_ENDPOINT);
+        HttpRequest request = post(uri, getString(product));
 
         return getRequestWrapped(request, Product.class);
     }
 
     @SneakyThrows
-    public Product updateProduct(String storeDomain, HashMap<String, String> params, Integer productId, Product product) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER).concat(String.valueOf(productId)))));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .PUT(HttpRequest.BodyPublishers.ofString(getString(product)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public Product updateProduct(String storeDomain, Integer productId, Product product) {
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = put(uri, getString(product));
 
         return getRequestWrapped(request, Product.class);
     }
 
     @SneakyThrows
-    public Product deleteProduct(String storeDomain, HashMap<String, String> params, Integer id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(PRODUCT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        params.put("force", "true");
-        params.remove("consumer_key");
-        params.remove("consumer_secret");
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .DELETE()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public Product deleteProduct(String storeDomain, Integer id) {
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(id));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, Product.class);
     }

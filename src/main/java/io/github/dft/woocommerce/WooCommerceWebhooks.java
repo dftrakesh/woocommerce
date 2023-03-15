@@ -1,6 +1,5 @@
 package io.github.dft.woocommerce;
 
-import io.github.dft.woocommerce.constatndcode.HttpConstants;
 import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.webhookapi.WebHook;
 import io.github.dft.woocommerce.model.webhookapi.WebHookWrapper;
@@ -10,75 +9,53 @@ import java.net.URI;
 import java.net.http.HttpRequest;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.API_BASE_END_POINT;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.FORWARD_SLASH_CHARACTER;
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.WEBHOOK_ENDPOINT;
-
 public class WooCommerceWebhooks extends WooCommerceSdk {
+
+    private String WEBHOOK_ENDPOINT = "/webhooks";
 
     public WooCommerceWebhooks(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public WebHookWrapper getAllWebHook(String storeDomain, HashMap<String, String> params) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(WEBHOOK_ENDPOINT)));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .build();
+    public WebHookWrapper getAllWebHook(String storeDomain) {
+        URI uri = baseUrl(storeDomain, WEBHOOK_ENDPOINT);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, WebHookWrapper.class);
     }
 
     @SneakyThrows
-    public WebHook getWebHookById(String storeDomain, HashMap<String, String> params, Integer id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(WEBHOOK_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .build();
+    public WebHook getWebHookById(String storeDomain, Integer id) {
+        String endpoint = WEBHOOK_ENDPOINT.concat("/").concat(String.valueOf(id));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, WebHook.class);
     }
 
     @SneakyThrows
-    public WebHook createWebhook(String storeDomain, HashMap<String, String> params, WebHook webHook) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(WEBHOOK_ENDPOINT)));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .POST(HttpRequest.BodyPublishers.ofString(getString(webHook)))
-                .header("Content-Type", HttpConstants.CONTENT_TYPE_APPLICATION_JSON)
-                .build();
+    public WebHook createWebhook(String storeDomain, WebHook webHook) {
+        URI uri = baseUrl(storeDomain, WEBHOOK_ENDPOINT);
+        HttpRequest request = post(uri, getString(webHook));
 
         return getRequestWrapped(request, WebHook.class);
     }
 
     @SneakyThrows
-    public WebHook updateWebhook(String storeDomain, HashMap<String, String> params, Integer webhookId, WebHook webHook) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(WEBHOOK_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + webhookId)));
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .PUT(HttpRequest.BodyPublishers.ofString(getString(webHook)))
-                .header("Content-Type", HttpConstants.CONTENT_TYPE_APPLICATION_JSON)
-                .build();
+    public WebHook updateWebhook(String storeDomain, Integer webhookId, WebHook webHook) {
+        String endpoint = WEBHOOK_ENDPOINT.concat("/").concat(String.valueOf(webhookId));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = put(uri, getString(webHook));
 
         return getRequestWrapped(request, WebHook.class);
     }
 
     @SneakyThrows
-    public WebHook deleteWebhook(String storeDomain, HashMap<String, String> params, Integer id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(WEBHOOK_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        params.put("force", "true");
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .DELETE()
-                .build();
+    public WebHook deleteWebhook(String storeDomain, Integer id) {
+        String endpoint = WEBHOOK_ENDPOINT.concat("/").concat(String.valueOf(id));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, WebHook.class);
     }

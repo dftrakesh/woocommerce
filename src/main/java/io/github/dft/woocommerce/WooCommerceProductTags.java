@@ -7,89 +7,55 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
-
 public class WooCommerceProductTags extends WooCommerceSdk {
+
+    private String TAG_ENDPOINT = "/products/tags";
 
     public WooCommerceProductTags(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public ProductTagWrapper getAllProductTags(String storeDomain, HashMap<String, String> params) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(TAG_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductTagWrapper getAllProductTags(String storeDomain) {
+        URI uri = baseUrl(storeDomain, TAG_ENDPOINT);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductTagWrapper.class);
     }
 
     @SneakyThrows
-    public ProductTag getProductTagById(String storeDomain, HashMap<String, String> params, String id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(TAG_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductTag getProductTagById(String storeDomain, String id) {
+        String endpoint = TAG_ENDPOINT.concat("/").concat(id);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductTag.class);
     }
 
     @SneakyThrows
-    public ProductTag createProductTag(String storeDomain, HashMap<String, String> params, ProductTag productTag) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(TAG_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .POST(HttpRequest.BodyPublishers.ofString(getString(productTag)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public ProductTag createProductTag(String storeDomain, ProductTag productTag) {
+        URI uri = baseUrl(storeDomain, TAG_ENDPOINT);
+        HttpRequest request = post(uri, getString(productTag));
 
         return getRequestWrapped(request, ProductTag.class);
     }
 
     @SneakyThrows
-    public ProductTag updateProductTag(String storeDomain, HashMap<String, String> params, String id, ProductTag productTag) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(TAG_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .PUT(HttpRequest.BodyPublishers.ofString(getString(productTag)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public ProductTag updateProductTag(String storeDomain, String id, ProductTag productTag) {
+        String endpoint = TAG_ENDPOINT.concat("/").concat(id);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = put(uri, getString(productTag));
 
         return getRequestWrapped(request, ProductTag.class);
     }
 
     @SneakyThrows
-    public ProductTag deleteProductTag(String storeDomain, HashMap<String, String> params, String id) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
-                .concat(TAG_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        params.put("force", "true");
-        params.remove("consumer_key");
-        params.remove("consumer_secret");
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .DELETE()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductTag deleteProductTag(String storeDomain, String id) {
+        String endpoint = TAG_ENDPOINT.concat("/").concat(id);
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductTag.class);
     }

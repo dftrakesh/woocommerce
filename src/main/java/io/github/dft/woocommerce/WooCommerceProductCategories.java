@@ -7,87 +7,55 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.Base64;
 import java.util.HashMap;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
-
 public class WooCommerceProductCategories extends WooCommerceSdk {
+
+    private String CATEGORY_ENDPOINT = "/products/categories";
 
     public WooCommerceProductCategories(AccessCredential accessCredential) {
         super(accessCredential);
     }
 
     @SneakyThrows
-    public ProductCategoryWrapper getAllProductCategories(String storeDomain, HashMap<String, String> params) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat(CATEGORY_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductCategoryWrapper getAllProductCategories(String storeDomain) {
+        URI uri = baseUrl(storeDomain, CATEGORY_ENDPOINT);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductCategoryWrapper.class);
     }
 
     @SneakyThrows
-    public ProductCategory getProductCategoryById(String storeDomain, HashMap<String, String> params, Integer id) {
-        String endpoint = CATEGORY_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + id;
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat(endpoint)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .GET()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductCategory getProductCategoryById(String storeDomain, Integer id) {
+        String endpoint = CATEGORY_ENDPOINT.concat("/").concat(String.valueOf(id));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductCategory.class);
     }
 
     @SneakyThrows
-    public ProductCategory createProductCategory(String storeDomain, HashMap<String, String> params, ProductCategory productCategory) {
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat(CATEGORY_ENDPOINT)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .POST(HttpRequest.BodyPublishers.ofString(getString(productCategory)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public ProductCategory createProductCategory(String storeDomain, ProductCategory productCategory) {
+        URI uri = baseUrl(storeDomain, CATEGORY_ENDPOINT);
+        HttpRequest request = post(uri, getString(productCategory));
 
         return getRequestWrapped(request, ProductCategory.class);
     }
 
     @SneakyThrows
-    public ProductCategory updateProductCategory(String storeDomain, HashMap<String, String> params, Integer productCategoryId, ProductCategory productCategory) {
-        String endpoint = CATEGORY_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + productCategoryId;
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat(endpoint)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .PUT(HttpRequest.BodyPublishers.ofString(getString(productCategory)))
-                .header(AUTHORIZATION, headerString)
-                .header("Content-Type","application/json")
-                .build();
+    public ProductCategory updateProductCategory(String storeDomain, Integer productCategoryId, ProductCategory productCategory) {
+        String endpoint = CATEGORY_ENDPOINT.concat("/").concat(String.valueOf(productCategoryId));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = put(uri, getString(productCategory));
 
         return getRequestWrapped(request, ProductCategory.class);
     }
 
     @SneakyThrows
-    public ProductCategory deleteProductCategory(String storeDomain, HashMap<String, String> params, Integer id) {
-        String endpoint = CATEGORY_ENDPOINT.concat(FORWARD_SLASH_CHARACTER).concat(String.valueOf(id));
-        URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat(endpoint)));
-        String originalInput = params.get("consumer_key").concat(":").concat(params.get("consumer_secret"));
-        String headerString = "Basic ".concat(Base64.getEncoder().encodeToString(originalInput.getBytes()));
-        params.put("force", "true");
-        params.remove("consumer_key");
-        params.remove("consumer_secret");
-        uri = addParameters(uri, params);
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .DELETE()
-                .header(AUTHORIZATION, headerString)
-                .build();
+    public ProductCategory deleteProductCategory(String storeDomain, Integer id) {
+        String endpoint = CATEGORY_ENDPOINT.concat("/").concat(String.valueOf(id));
+        URI uri = baseUrl(storeDomain, endpoint);
+        HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductCategory.class);
     }
