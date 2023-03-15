@@ -1,6 +1,8 @@
 package io.github.dft.woocommerce;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.SneakyThrows;
 
 import java.net.URI;
@@ -13,6 +15,8 @@ import java.util.concurrent.CompletableFuture;
 
 import static io.github.dft.woocommerce.constatndcode.ConstantCode.*;
 
+@AllArgsConstructor
+@Builder(toBuilder = true)
 public class WooCommerceSdk {
 
     protected HttpClient client;
