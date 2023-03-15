@@ -33,19 +33,6 @@ public class WooCommerceSdk {
     }
 
     @SneakyThrows
-    public <T>CompletableFuture<HttpResponse<T>> tryResend(HttpClient client,
-                                                           HttpRequest request,
-                                                           HttpResponse.BodyHandler<T> handler,
-                                                           HttpResponse<T> response,int count){
-        if(response.statusCode() == TOO_MANY_REQUEST_EXCEPTION_CODE && count < MAX_ATTEMPTS){
-            Thread.sleep(TIME_OUT_DURATION);
-            return client.sendAsync(request,handler)
-                    .thenComposeAsync(resp -> tryResend(client,request,handler,resp,count+1));
-        }
-        return CompletableFuture.completedFuture(response);
-    }
-
-    @SneakyThrows
     protected String getString(Object body) {
         return objectMapper.writeValueAsString(body);
     }
@@ -100,5 +87,18 @@ public class WooCommerceSdk {
                 accessCredential.getConsumerSecret();
         return new StringBuilder("Basic ")
                 .append(Base64.getEncoder().encodeToString(originalInput.getBytes()));
+    }
+
+    @SneakyThrows
+    public <T>CompletableFuture<HttpResponse<T>> tryResend(HttpClient client,
+                                                           HttpRequest request,
+                                                           HttpResponse.BodyHandler<T> handler,
+                                                           HttpResponse<T> response,int count){
+        if(response.statusCode() == TOO_MANY_REQUEST_EXCEPTION_CODE && count < MAX_ATTEMPTS){
+            Thread.sleep(TIME_OUT_DURATION);
+            return client.sendAsync(request,handler)
+                    .thenComposeAsync(resp -> tryResend(client,request,handler,resp,count+1));
+        }
+        return CompletableFuture.completedFuture(response);
     }
 }
