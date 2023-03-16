@@ -3,16 +3,21 @@ package io.github.dft.woocommerce;
 import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import io.github.dft.woocommerce.model.reportapi.*;
 import lombok.SneakyThrows;
-
 import java.net.URI;
 import java.util.HashMap;
-
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
 
 public class WooCommerceReports extends WooCommerceSdk {
 
     String API_BASE_END_POINT = "/wp-json/wc/v3";
     String FORWARD_SLASH_CHARACTER = "/";
+    String REPORT_ENDPOINT = "/reports";
+    String SALES_ENDPOINT = "sales";
+    String TOP_SELLER_ENDPOINT = "top_sellers";
+    String COUPONS_ENDPOINT = "coupons/totals";
+    String CUSTOMERS_ENDPOINT = "customers/totals";
+    String ORDERS_ENDPOINT = "orders/totals";
+    String PRODUCTS_ENDPOINT = "products/totals";
+    String REVIEWS_ENDPOINT = "reviews/totals";
 
     public WooCommerceReports(AccessCredential accessCredential) {
         super(accessCredential);
