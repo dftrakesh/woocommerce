@@ -7,7 +7,6 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.HashMap;
 
 public class WooCommerceProducts extends WooCommerceSdk {
 
@@ -18,7 +17,7 @@ public class WooCommerceProducts extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public ProductWrapper getAllProducts(String storeDomain, HashMap<String, String> params) {
+    public ProductWrapper getAllProducts(String storeDomain) {
         URI uri = baseUrl(storeDomain, PRODUCT_ENDPOINT);
         HttpRequest request = get(uri);
 

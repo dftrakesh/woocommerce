@@ -15,10 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import static io.github.dft.woocommerce.constatndcode.HttpConstants.*;
-
 @AllArgsConstructor
-@Builder(toBuilder = true)
+@Builder(builderMethodName = "newBuilder", toBuilder = true)
 public class WooCommerceSdk {
 
     private String API_BASE_END_POINT = "/wp-json/wc/v3";
@@ -142,5 +140,17 @@ public class WooCommerceSdk {
                     .thenComposeAsync(resp -> tryResend(client,request,handler,resp,count+1));
         }
         return CompletableFuture.completedFuture(response);
+    }
+
+    public WooCommerceOrders getOrderApi(){
+        return new WooCommerceOrders(accessCredential);
+    }
+
+    public WooCommerceStoreInformation getStoreInfoApi(){
+        return new WooCommerceStoreInformation(accessCredential);
+    }
+
+    public WooCommerceProducts getProductApi(){
+        return new WooCommerceProducts(accessCredential);
     }
 }
