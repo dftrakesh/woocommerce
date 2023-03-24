@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
+import java.util.HashMap;
 
 public class WooCommerceProducts extends WooCommerceSdk {
 
@@ -19,6 +20,20 @@ public class WooCommerceProducts extends WooCommerceSdk {
     @SneakyThrows
     public ProductWrapper getAllProducts(String storeDomain) {
         URI uri = baseUrl(storeDomain, PRODUCT_ENDPOINT);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("per_page", "100");
+        uri = addParameters(uri, params);
+        HttpRequest request = get(uri);
+
+        return getRequestWrapped(request, ProductWrapper.class);
+    }
+
+    @SneakyThrows
+    public ProductWrapper getOneProduct(String storeDomain) {
+        URI uri = baseUrl(storeDomain, PRODUCT_ENDPOINT);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("per_page", "1");
+        uri = addParameters(uri, params);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductWrapper.class);

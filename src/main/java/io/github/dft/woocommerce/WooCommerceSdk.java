@@ -30,21 +30,21 @@ public class WooCommerceSdk {
     protected AccessCredential accessCredential;
 
     @SneakyThrows
-    public WooCommerceSdk(AccessCredential accessCredential)  {
+    public WooCommerceSdk(AccessCredential accessCredential) {
         client = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
         this.accessCredential = accessCredential;
     }
 
     @SneakyThrows
-    protected URI baseUrl(String storeDomain,String endpoint){
+    protected URI baseUrl(String storeDomain, String endpoint) {
         return URI.create(storeDomain +
                 API_BASE_END_POINT +
                 endpoint);
     }
 
     @SneakyThrows
-    protected StringBuilder header(){
+    protected StringBuilder header() {
         String originalInput = accessCredential.getConsumerKey() +
                 ":" +
                 accessCredential.getConsumerSecret();
@@ -53,33 +53,33 @@ public class WooCommerceSdk {
     }
 
     @SneakyThrows
-    protected HttpRequest get(URI uri){
+    protected HttpRequest get(URI uri) {
         return HttpRequest.newBuilder(uri)
                 .GET()
-                .header(AUTHORIZATION,header().toString())
+                .header(AUTHORIZATION, header().toString())
                 .build();
     }
 
     @SneakyThrows
-    protected HttpRequest post(URI uri,String body){
+    protected HttpRequest post(URI uri, String body) {
         return HttpRequest.newBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .header(AUTHORIZATION, header().toString())
-                .header("Content-Type","application/json")
+                .header("Content-Type", "application/json")
                 .build();
     }
 
     @SneakyThrows
-    protected HttpRequest put(URI uri,String body){
+    protected HttpRequest put(URI uri, String body) {
         return HttpRequest.newBuilder(uri)
                 .PUT(HttpRequest.BodyPublishers.ofString(body))
                 .header(AUTHORIZATION, header().toString())
-                .header("Content-Type","application/json")
+                .header("Content-Type", "application/json")
                 .build();
     }
 
     @SneakyThrows
-    protected HttpRequest delete(URI uri){
+    protected HttpRequest delete(URI uri) {
         HashMap<String, String> params = new HashMap<>();
         params.put("force", "true");
         uri = addParameters(uri, params);
@@ -118,39 +118,47 @@ public class WooCommerceSdk {
         if (query != null)
             builder.append(query);
 
-        for (Map.Entry<String,String> entry: params.entrySet()) {
+        for (Map.Entry<String, String> entry : params.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            if(!builder.toString().isEmpty())
+            if (!builder.toString().isEmpty())
                 builder.append("&");
             builder.append(key.concat("=").concat(value));
         }
 
-        return new URI(uri.getScheme(),uri.getAuthority(),uri.getPath(),builder.toString(), uri.getFragment());
+        return new URI(uri.getScheme(), uri.getAuthority(), uri.getPath(), builder.toString(), uri.getFragment());
     }
 
     @SneakyThrows
-    public <T>CompletableFuture<HttpResponse<T>> tryResend(HttpClient client,
-                                                           HttpRequest request,
-                                                           HttpResponse.BodyHandler<T> handler,
-                                                           HttpResponse<T> response,int count){
-        if(response.statusCode() == TOO_MANY_REQUEST_EXCEPTION_CODE && count < MAX_ATTEMPTS){
+    public <T> CompletableFuture<HttpResponse<T>> tryResend(HttpClient client,
+                                                            HttpRequest request,
+                                                            HttpResponse.BodyHandler<T> handler,
+                                                            HttpResponse<T> response, int count) {
+        if (response.statusCode() == TOO_MANY_REQUEST_EXCEPTION_CODE && count < MAX_ATTEMPTS) {
             Thread.sleep(TIME_OUT_DURATION);
-            return client.sendAsync(request,handler)
-                    .thenComposeAsync(resp -> tryResend(client,request,handler,resp,count+1));
+            return client.sendAsync(request, handler)
+                    .thenComposeAsync(resp -> tryResend(client, request, handler, resp, count + 1));
         }
         return CompletableFuture.completedFuture(response);
     }
 
-    public WooCommerceOrders getOrderApi(){
+    public WooCommerceOrders getOrderApi() {
         return new WooCommerceOrders(accessCredential);
     }
 
-    public WooCommerceStoreInformation getStoreInfoApi(){
+    public WooCommerceStoreInformation getStoreInfoApi() {
         return new WooCommerceStoreInformation(accessCredential);
     }
 
-    public WooCommerceProducts getProductApi(){
+    public WooCommerceProducts getProductApi() {
         return new WooCommerceProducts(accessCredential);
+    }
+
+    public WooCommerceProductVariations getProductVariationApi(){
+        return new WooCommerceProductVariations(accessCredential);
+    }
+
+    public WooCommerceWebhooks getWebHookApi() {
+        return new WooCommerceWebhooks(accessCredential);
     }
 }

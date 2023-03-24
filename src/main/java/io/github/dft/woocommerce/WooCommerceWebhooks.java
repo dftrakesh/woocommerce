@@ -20,6 +20,9 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
     @SneakyThrows
     public WebHookWrapper getAllWebHook(String storeDomain) {
         URI uri = baseUrl(storeDomain, WEBHOOK_ENDPOINT);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("per_page", "100");
+        uri = addParameters(uri, params);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, WebHookWrapper.class);

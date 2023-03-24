@@ -22,6 +22,9 @@ public class WooCommerceProductVariations extends WooCommerceSdk {
     public ProductVariationWrapper getAllProductVariations(String storeDomain, Integer productId) {
         String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT);
         URI uri = baseUrl(storeDomain, endpoint);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("per_page", "100");
+        uri = addParameters(uri, params);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductVariationWrapper.class);
