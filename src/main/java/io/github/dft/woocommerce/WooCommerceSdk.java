@@ -5,7 +5,6 @@ import io.github.dft.woocommerce.model.authenticationapi.AccessCredential;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.SneakyThrows;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
