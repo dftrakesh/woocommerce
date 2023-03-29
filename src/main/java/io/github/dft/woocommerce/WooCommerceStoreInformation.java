@@ -16,8 +16,8 @@ public class WooCommerceStoreInformation extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public StoreInformation getSystemInformation(String storeDomain) {
-        URI uri = baseUrl(storeDomain, STORE_INFORMATION_ENDPOINT);
+    public StoreInformation getSystemInformation() {
+        URI uri = baseUrl(STORE_INFORMATION_ENDPOINT);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, StoreInformation.class);

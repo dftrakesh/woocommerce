@@ -18,18 +18,18 @@ public class WooCommerceOrderNotes extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public OrderNoteWrapper getAllOrderNotes(String storeDomain, Integer orderId) {
+    public OrderNoteWrapper getAllOrderNotes(Integer orderId) {
         String endpoint = ORDER_ENDPOINT.concat("/").concat(String.valueOf(orderId)).concat(ORDER_NOTE_ENDPOINT);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, OrderNoteWrapper.class);
     }
 
     @SneakyThrows
-    public OrderNote getOrderNoteById(String storeDomain, Integer orderId, Integer orderNoteId) {
+    public OrderNote getOrderNoteById(Integer orderId, Integer orderNoteId) {
         String endpoint = ORDER_ENDPOINT.concat("/").concat(String.valueOf(orderId)).concat(ORDER_NOTE_ENDPOINT).concat("/").concat(String.valueOf(orderNoteId));
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, OrderNote.class);

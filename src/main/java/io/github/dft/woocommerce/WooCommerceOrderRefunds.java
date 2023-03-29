@@ -18,18 +18,18 @@ public class WooCommerceOrderRefunds extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public OrderRefundWrapper getAllOrderRefunds(String storeDomain, Integer orderId) {
+    public OrderRefundWrapper getAllOrderRefunds(Integer orderId) {
         String endpoint = ORDER_ENDPOINT.concat("/").concat(String.valueOf(orderId)).concat(REFUND_ENDPOINT);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, OrderRefundWrapper.class);
     }
 
     @SneakyThrows
-    public OrderRefund getOrderRefundById(String storeDomain, Integer orderId, Integer refundId) {
+    public OrderRefund getOrderRefundById(Integer orderId, Integer refundId) {
         String endpoint = ORDER_ENDPOINT.concat("/").concat(String.valueOf(orderId)).concat(REFUND_ENDPOINT).concat("/").concat(String.valueOf(refundId));
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, OrderRefund.class);

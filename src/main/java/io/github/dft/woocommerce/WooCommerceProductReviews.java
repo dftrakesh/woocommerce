@@ -18,43 +18,43 @@ public class WooCommerceProductReviews extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public ProductReviewWrapper getAllProductReview(String storeDomain) {
-        URI uri = baseUrl(storeDomain, REVIEW_ENDPOINT);
+    public ProductReviewWrapper getAllProductReview() {
+        URI uri = baseUrl(REVIEW_ENDPOINT);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductReviewWrapper.class);
     }
 
     @SneakyThrows
-    public ProductReview getProductReviewById(String storeDomain, String id) {
+    public ProductReview getProductReviewById(String id) {
         String endpoint = REVIEW_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductReview.class);
     }
 
     @SneakyThrows
-    public ProductReview createProductReview(String storeDomain, ProductReview productReview) {
-        URI uri = baseUrl(storeDomain, REVIEW_ENDPOINT);
+    public ProductReview createProductReview(ProductReview productReview) {
+        URI uri = baseUrl(REVIEW_ENDPOINT);
         HttpRequest request = post(uri, getString(productReview));
 
         return getRequestWrapped(request, ProductReview.class);
     }
 
     @SneakyThrows
-    public ProductReview updateProductReview(String storeDomain, String id, ProductReview productReview) {
+    public ProductReview updateProductReview(String id, ProductReview productReview) {
         String endpoint = REVIEW_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = put(uri, getString(productReview));
 
         return getRequestWrapped(request, ProductReview.class);
     }
 
     @SneakyThrows
-    public ProductReview deleteProductReview(String storeDomain, String id) {
+    public ProductReview deleteProductReview(String id) {
         String endpoint = REVIEW_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductReview.class);

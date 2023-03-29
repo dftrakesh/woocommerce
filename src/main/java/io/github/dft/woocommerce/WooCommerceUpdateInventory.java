@@ -17,9 +17,9 @@ public class WooCommerceUpdateInventory extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public Product updateInventory(String storeDomain, Integer productID, UpdateInventory updateInventory) {
+    public Product updateInventory(Integer productID, UpdateInventory updateInventory) {
         String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productID));
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = put(uri, getString(updateInventory));
 
         return getRequestWrapped(request, Product.class);

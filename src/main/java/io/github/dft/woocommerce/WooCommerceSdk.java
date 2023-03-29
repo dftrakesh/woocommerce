@@ -36,8 +36,8 @@ public class WooCommerceSdk {
     }
 
     @SneakyThrows
-    protected URI baseUrl(String storeDomain, String endpoint) {
-        return URI.create(storeDomain +
+    protected URI baseUrl(String endpoint) {
+        return URI.create(accessCredential.getStoreDomain() +
                 API_BASE_END_POINT +
                 endpoint);
     }
@@ -141,15 +141,23 @@ public class WooCommerceSdk {
         return CompletableFuture.completedFuture(response);
     }
 
-    public WooCommerceOrders getOrderApi(){
+    public WooCommerceOrders getOrderApi() {
         return new WooCommerceOrders(accessCredential);
     }
 
-    public WooCommerceStoreInformation getStoreInfoApi(){
+    public WooCommerceStoreInformation getStoreInfoApi() {
         return new WooCommerceStoreInformation(accessCredential);
     }
 
-    public WooCommerceProducts getProductApi(){
+    public WooCommerceProducts getProductApi() {
         return new WooCommerceProducts(accessCredential);
+    }
+
+    public WooCommerceProductVariations getProductVariationApi(){
+        return new WooCommerceProductVariations(accessCredential);
+    }
+
+    public WooCommerceWebhooks getWebHookApi() {
+        return new WooCommerceWebhooks(accessCredential);
     }
 }
