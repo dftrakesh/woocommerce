@@ -18,43 +18,43 @@ public class WooCommerceProductCategories extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public ProductCategoryWrapper getAllProductCategories(String storeDomain) {
-        URI uri = baseUrl(storeDomain, CATEGORY_ENDPOINT);
+    public ProductCategoryWrapper getAllProductCategories() {
+        URI uri = baseUrl(CATEGORY_ENDPOINT);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductCategoryWrapper.class);
     }
 
     @SneakyThrows
-    public ProductCategory getProductCategoryById(String storeDomain, Integer id) {
+    public ProductCategory getProductCategoryById(Integer id) {
         String endpoint = CATEGORY_ENDPOINT.concat("/").concat(String.valueOf(id));
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductCategory.class);
     }
 
     @SneakyThrows
-    public ProductCategory createProductCategory(String storeDomain, ProductCategory productCategory) {
-        URI uri = baseUrl(storeDomain, CATEGORY_ENDPOINT);
+    public ProductCategory createProductCategory(ProductCategory productCategory) {
+        URI uri = baseUrl(CATEGORY_ENDPOINT);
         HttpRequest request = post(uri, getString(productCategory));
 
         return getRequestWrapped(request, ProductCategory.class);
     }
 
     @SneakyThrows
-    public ProductCategory updateProductCategory(String storeDomain, Integer productCategoryId, ProductCategory productCategory) {
+    public ProductCategory updateProductCategory(Integer productCategoryId, ProductCategory productCategory) {
         String endpoint = CATEGORY_ENDPOINT.concat("/").concat(String.valueOf(productCategoryId));
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = put(uri, getString(productCategory));
 
         return getRequestWrapped(request, ProductCategory.class);
     }
 
     @SneakyThrows
-    public ProductCategory deleteProductCategory(String storeDomain, Integer id) {
+    public ProductCategory deleteProductCategory(Integer id) {
         String endpoint = CATEGORY_ENDPOINT.concat("/").concat(String.valueOf(id));
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductCategory.class);

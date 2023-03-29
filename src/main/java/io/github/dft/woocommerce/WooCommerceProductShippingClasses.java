@@ -18,43 +18,43 @@ public class WooCommerceProductShippingClasses extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public ProductShippingWrapper getAllProductShippingClasses(String storeDomain) {
-        URI uri = baseUrl(storeDomain, SHIPPING_ENDPOINT);
+    public ProductShippingWrapper getAllProductShippingClasses() {
+        URI uri = baseUrl(SHIPPING_ENDPOINT);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductShippingWrapper.class);
     }
 
     @SneakyThrows
-    public ProductShipping getProductShippingClassById(String storeDomain, String id) {
+    public ProductShipping getProductShippingClassById(String id) {
         String endpoint = SHIPPING_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductShipping.class);
     }
 
     @SneakyThrows
-    public ProductShipping createProductShippingClass(String storeDomain, ProductShipping productShipping) {
-        URI uri = baseUrl(storeDomain, SHIPPING_ENDPOINT);
+    public ProductShipping createProductShippingClass(ProductShipping productShipping) {
+        URI uri = baseUrl(SHIPPING_ENDPOINT);
         HttpRequest request = post(uri, getString(productShipping));
 
         return getRequestWrapped(request, ProductShipping.class);
     }
 
     @SneakyThrows
-    public ProductShipping updateProductShippingClass(String storeDomain, String id, ProductShipping productShipping) {
+    public ProductShipping updateProductShippingClass(String id, ProductShipping productShipping) {
         String endpoint = SHIPPING_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = put(uri, getString(productShipping));
 
         return getRequestWrapped(request, ProductShipping.class);
     }
 
     @SneakyThrows
-    public ProductShipping deleteProductShippingClass(String storeDomain, String id) {
+    public ProductShipping deleteProductShippingClass(String id) {
         String endpoint = SHIPPING_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductShipping.class);

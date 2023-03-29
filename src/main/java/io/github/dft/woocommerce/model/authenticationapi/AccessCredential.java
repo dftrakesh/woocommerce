@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class AccessCredential {
-    private String shopDomain;
+    private String storeDomain;
     private String keyId;
     private String userId;
     private String consumerKey;

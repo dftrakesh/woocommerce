@@ -36,8 +36,8 @@ public class WooCommerceSdk {
     }
 
     @SneakyThrows
-    protected URI baseUrl(String storeDomain, String endpoint) {
-        return URI.create(storeDomain +
+    protected URI baseUrl(String endpoint) {
+        return URI.create(accessCredential.getStoreDomain() +
                 API_BASE_END_POINT +
                 endpoint);
     }

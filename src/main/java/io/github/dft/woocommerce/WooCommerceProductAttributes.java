@@ -7,7 +7,6 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.HashMap;
 
 public class WooCommerceProductAttributes extends WooCommerceSdk {
 
@@ -18,43 +17,43 @@ public class WooCommerceProductAttributes extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public ProductAttributeWrapper getAllProductAttributes(String storeDomain) {
-        URI uri = baseUrl(storeDomain, ATTRIBUTE_ENDPOINT);
+    public ProductAttributeWrapper getAllProductAttributes() {
+        URI uri = baseUrl(ATTRIBUTE_ENDPOINT);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductAttributeWrapper.class);
     }
 
     @SneakyThrows
-    public ProductAttribute getProductAttributeById(String storeDomain, String id) {
+    public ProductAttribute getProductAttributeById(String id) {
         String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductAttribute.class);
     }
 
     @SneakyThrows
-    public ProductAttribute createProductAttribute(String storeDomain, ProductAttribute productAttribute) {
-        URI uri = baseUrl(storeDomain, ATTRIBUTE_ENDPOINT);
+    public ProductAttribute createProductAttribute(ProductAttribute productAttribute) {
+        URI uri = baseUrl(ATTRIBUTE_ENDPOINT);
         HttpRequest request = post(uri, getString(productAttribute));
 
         return getRequestWrapped(request, ProductAttribute.class);
     }
 
     @SneakyThrows
-    public ProductAttribute updateProductAttribute(String storeDomain, String id, ProductAttribute productAttribute) {
+    public ProductAttribute updateProductAttribute(String id, ProductAttribute productAttribute) {
         String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = put(uri, getString(productAttribute));
 
         return getRequestWrapped(request, ProductAttribute.class);
     }
 
     @SneakyThrows
-    public ProductAttribute deleteProductAttribute(String storeDomain, String id) {
+    public ProductAttribute deleteProductAttribute(String id) {
         String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductAttribute.class);

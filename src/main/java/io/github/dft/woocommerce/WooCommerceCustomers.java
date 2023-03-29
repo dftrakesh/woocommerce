@@ -17,16 +17,16 @@ public class WooCommerceCustomers extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public CustomerWrapper getAllCustomers(String storeDomain) {
-        URI uri = baseUrl(storeDomain, CUSTOMER_ENDPOINT);
+    public CustomerWrapper getAllCustomers() {
+        URI uri = baseUrl(CUSTOMER_ENDPOINT);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, CustomerWrapper.class);
     }
 
     @SneakyThrows
-    public Customer getCustomerById(String storeDomain, Integer id) {
-        URI uri = baseUrl(storeDomain, CUSTOMER_ENDPOINT.concat("/").concat(String.valueOf(id)));
+    public Customer getCustomerById(Integer id) {
+        URI uri = baseUrl(CUSTOMER_ENDPOINT.concat("/").concat(String.valueOf(id)));
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, Customer.class);

@@ -18,8 +18,8 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public WebHookWrapper getAllWebHook(String storeDomain) {
-        URI uri = baseUrl(storeDomain, WEBHOOK_ENDPOINT);
+    public WebHookWrapper getAllWebHook() {
+        URI uri = baseUrl(WEBHOOK_ENDPOINT);
         HashMap<String, String> params = new HashMap<>();
         params.put("per_page", "100");
         uri = addParameters(uri, params);
@@ -29,35 +29,35 @@ public class WooCommerceWebhooks extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public WebHook getWebHookById(String storeDomain, Integer id) {
+    public WebHook getWebHookById(Integer id) {
         String endpoint = WEBHOOK_ENDPOINT.concat("/").concat(String.valueOf(id));
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, WebHook.class);
     }
 
     @SneakyThrows
-    public WebHook createWebhook(String storeDomain, WebHook webHook) {
-        URI uri = baseUrl(storeDomain, WEBHOOK_ENDPOINT);
+    public WebHook createWebhook(WebHook webHook) {
+        URI uri = baseUrl(WEBHOOK_ENDPOINT);
         HttpRequest request = post(uri, getString(webHook));
 
         return getRequestWrapped(request, WebHook.class);
     }
 
     @SneakyThrows
-    public WebHook updateWebhook(String storeDomain, Integer webhookId, WebHook webHook) {
+    public WebHook updateWebhook(Integer webhookId, WebHook webHook) {
         String endpoint = WEBHOOK_ENDPOINT.concat("/").concat(String.valueOf(webhookId));
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = put(uri, getString(webHook));
 
         return getRequestWrapped(request, WebHook.class);
     }
 
     @SneakyThrows
-    public WebHook deleteWebhook(String storeDomain, Integer id) {
+    public WebHook deleteWebhook(Integer id) {
         String endpoint = WEBHOOK_ENDPOINT.concat("/").concat(String.valueOf(id));
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, WebHook.class);

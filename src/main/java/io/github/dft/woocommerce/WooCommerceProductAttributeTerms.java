@@ -7,7 +7,6 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.HashMap;
 
 public class WooCommerceProductAttributeTerms extends WooCommerceSdk {
 
@@ -19,49 +18,49 @@ public class WooCommerceProductAttributeTerms extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public ProductAttributeTermWrapper getAllProductAttributeTerms(String storeDomain, String productAttributeId) {
+    public ProductAttributeTermWrapper getAllProductAttributeTerms(String productAttributeId) {
         String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(productAttributeId).concat(TERMS_ENDPOINT);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductAttributeTermWrapper.class);
     }
 
     @SneakyThrows
-    public ProductAttributeTerm getProductAttributeTermById(String storeDomain, String productAttributeId,
+    public ProductAttributeTerm getProductAttributeTermById(String productAttributeId,
                                                             String productAttributeTermId) {
         String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(productAttributeId).concat(TERMS_ENDPOINT).concat("/").concat(productAttributeTermId);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductAttributeTerm.class);
     }
 
     @SneakyThrows
-    public ProductAttributeTerm createProductAttributeTerm(String storeDomain, String productAttributeId,
+    public ProductAttributeTerm createProductAttributeTerm(String productAttributeId,
                                                            ProductAttributeTerm productAttributeTerm) {
         String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(productAttributeId).concat(TERMS_ENDPOINT);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = post(uri, getString(productAttributeTerm));
 
         return getRequestWrapped(request, ProductAttributeTerm.class);
     }
 
     @SneakyThrows
-    public ProductAttributeTerm updateProductAttributeTerm(String storeDomain, String productAttributeId,
+    public ProductAttributeTerm updateProductAttributeTerm(String productAttributeId,
                                                            String productAttributeTermId,
                                                            ProductAttributeTerm productAttributeTerm) {
         String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(productAttributeId).concat(TERMS_ENDPOINT).concat("/").concat(productAttributeTermId);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = put(uri, getString(productAttributeTerm));
 
         return getRequestWrapped(request, ProductAttributeTerm.class);
     }
 
     @SneakyThrows
-    public ProductAttributeTerm deleteProductAttributeTerm(String storeDomain, String productAttributeId, String productAttributeTermId) {
+    public ProductAttributeTerm deleteProductAttributeTerm(String productAttributeId, String productAttributeTermId) {
         String endpoint = ATTRIBUTE_ENDPOINT.concat("/").concat(productAttributeId).concat(TERMS_ENDPOINT).concat("/").concat(productAttributeTermId);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductAttributeTerm.class);

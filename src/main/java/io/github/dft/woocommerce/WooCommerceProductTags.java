@@ -7,7 +7,6 @@ import lombok.SneakyThrows;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
-import java.util.HashMap;
 
 public class WooCommerceProductTags extends WooCommerceSdk {
 
@@ -18,43 +17,43 @@ public class WooCommerceProductTags extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public ProductTagWrapper getAllProductTags(String storeDomain) {
-        URI uri = baseUrl(storeDomain, TAG_ENDPOINT);
+    public ProductTagWrapper getAllProductTags() {
+        URI uri = baseUrl(TAG_ENDPOINT);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductTagWrapper.class);
     }
 
     @SneakyThrows
-    public ProductTag getProductTagById(String storeDomain, String id) {
+    public ProductTag getProductTagById(String id) {
         String endpoint = TAG_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
         return getRequestWrapped(request, ProductTag.class);
     }
 
     @SneakyThrows
-    public ProductTag createProductTag(String storeDomain, ProductTag productTag) {
-        URI uri = baseUrl(storeDomain, TAG_ENDPOINT);
+    public ProductTag createProductTag(ProductTag productTag) {
+        URI uri = baseUrl(TAG_ENDPOINT);
         HttpRequest request = post(uri, getString(productTag));
 
         return getRequestWrapped(request, ProductTag.class);
     }
 
     @SneakyThrows
-    public ProductTag updateProductTag(String storeDomain, String id, ProductTag productTag) {
+    public ProductTag updateProductTag(String id, ProductTag productTag) {
         String endpoint = TAG_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = put(uri, getString(productTag));
 
         return getRequestWrapped(request, ProductTag.class);
     }
 
     @SneakyThrows
-    public ProductTag deleteProductTag(String storeDomain, String id) {
+    public ProductTag deleteProductTag(String id) {
         String endpoint = TAG_ENDPOINT.concat("/").concat(id);
-        URI uri = baseUrl(storeDomain, endpoint);
+        URI uri = baseUrl(endpoint);
         HttpRequest request = delete(uri);
 
         return getRequestWrapped(request, ProductTag.class);
