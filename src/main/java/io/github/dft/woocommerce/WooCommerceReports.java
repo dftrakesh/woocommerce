@@ -25,12 +25,10 @@ public class WooCommerceReports extends WooCommerceSdk {
 
 
     @SneakyThrows
-    public ReportsWrapper getAllReports(String storeDomain, HashMap<String, String> params) {
+    public ReportsWrapper getAllReports(String storeDomain) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT.concat("/reports")));
-        uri = addParameters(uri, params);
         return getRequestWrapped(get(uri), ReportsWrapper.class);
     }
-
 
     @SneakyThrows
     public SalesReportWrapper getSalesReport(String storeDomain, HashMap<String, String> params) {
@@ -40,7 +38,7 @@ public class WooCommerceReports extends WooCommerceSdk {
     }
 
     @SneakyThrows
-    public SalesReportWrapper getSellerReport(String storeDomain, HashMap<String, String> params) {
+    public SalesReportWrapper getSellerReport(String storeDomain,  HashMap<String, String> params) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
                 .concat(REPORT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + TOP_SELLER_ENDPOINT)));
         uri = addParameters(uri, params);
@@ -56,10 +54,9 @@ public class WooCommerceReports extends WooCommerceSdk {
 
     }
 
-    public TotalCustomerwrapper getTotalCustomer(String storeDomain, HashMap<String, String> params) {
+    public TotalCustomerwrapper getTotalCustomer(String storeDomain) {
         URI uri = URI.create(storeDomain.concat(API_BASE_END_POINT
                 .concat(REPORT_ENDPOINT.concat(FORWARD_SLASH_CHARACTER) + CUSTOMERS_ENDPOINT)));
-        uri = addParameters(uri, params);
         return getRequestWrapped(get(uri), TotalCustomerwrapper.class);
 
     }

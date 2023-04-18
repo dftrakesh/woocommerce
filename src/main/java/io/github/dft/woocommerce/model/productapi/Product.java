@@ -37,8 +37,6 @@ public class Product {
     private Integer ratingCount;
     private Boolean virtual;
     private String taxClass;
-    private boolean visible;
-    private Boolean inStock;
     private String priceHtml;
     private Boolean featured;
     private String salePrice;
@@ -51,7 +49,8 @@ public class Product {
     private String externalUrl;
     private Integer downloadExpiry;
     private String description;
-    private Boolean backOrdered;
+    private Boolean backordered;
+    private String stockStatus;
     private String purchaseNote;
     private String regularPrice;
     private Integer shippingClassId;
@@ -73,7 +72,7 @@ public class Product {
     private List<Integer> variations;
     private List<Download> downloads;
     private List<Category> categories;
-    private Boolean backOrdersAllowed;
+    private Boolean backordersAllowed;
     @JsonDeserialize(using=DateDeserializer.class)
     private LocalDateTime dateCreated;
     private List<Attribute> attributes;
