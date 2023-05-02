@@ -140,24 +140,4 @@ public class WooCommerceSdk {
         }
         return CompletableFuture.completedFuture(response);
     }
-
-    public WooCommerceOrders getOrderApi() {
-        return new WooCommerceOrders(accessCredential);
-    }
-
-    public WooCommerceStoreInformation getStoreInfoApi() {
-        return new WooCommerceStoreInformation(accessCredential);
-    }
-
-    public WooCommerceProducts getProductApi() {
-        return new WooCommerceProducts(accessCredential);
-    }
-
-    public WooCommerceProductVariations getProductVariationApi(){
-        return new WooCommerceProductVariations(accessCredential);
-    }
-
-    public WooCommerceWebhooks getWebHookApi() {
-        return new WooCommerceWebhooks(accessCredential);
-    }
 }
