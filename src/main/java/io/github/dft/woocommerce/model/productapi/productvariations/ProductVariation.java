@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.github.dft.woocommerce.model.common.DateDeserializer;
 import io.github.dft.woocommerce.model.customerapi.MetaData;
-import io.github.dft.woocommerce.model.productapi.Attribute;
 import io.github.dft.woocommerce.model.productapi.*;
 import lombok.Data;
 
@@ -20,30 +19,30 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProductVariation {
-    private String id;
+    private Integer id;
     private String sku;
     @JsonProperty("_links")
     private Links links;
-    private Image images;
-    private String price;
+    private Image image;
+    private Double price;
     private String weight;
     private int menuOrder;
     private Boolean onSale;
     private Boolean virtual;
     private String taxClass;
     private boolean visible;
-    private Boolean inStock;
+    private String stockStatus;
     private String salePrice;
     private String permalink;
     private String taxStatus;
-    private int stockQuantity;
+    private Integer stockQuantity;
     private String backorders;
     private int downloadLimit;
     private int downloadExpiry;
     private String description;
-    private Boolean backOrdered;
+    private Boolean backordered;
     private int shippingClassId;
-    private String regularPrice;
+    private Double regularPrice;
     private String manageStock;
     private Boolean purchasable;
     private Boolean downloadable;
@@ -51,7 +50,7 @@ public class ProductVariation {
     private String shippingClass;
     private List<MetaData> metaData;
     private List<Download> downloads;
-    private Boolean backOrdersAllowed;
+    private Boolean backordersAllowed;
     @JsonDeserialize(using = DateDeserializer.class)
     private LocalDateTime dateCreated;
     @JsonDeserialize(using = DateDeserializer.class)
