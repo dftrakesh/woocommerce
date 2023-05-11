@@ -27,7 +27,7 @@ public class Product {
     private String type;
     private Integer parentId;
     private List<Image> images;
-    private String price;
+    private Double price;
     private String weight;
     private Integer menuOrder;
     private String status;
