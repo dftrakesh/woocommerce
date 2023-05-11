@@ -81,7 +81,7 @@ public class WooCommerceProductVariations extends WooCommerceSdk {
 
     @SneakyThrows
     public ProductVariation getProductVariationById(Integer productId, Integer productVariationId) {
-        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT).concat("/" + productVariationId);
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT).concat("/").concat(String.valueOf(productVariationId));
         URI uri = baseUrl(endpoint);
         HttpRequest request = get(uri);
 
@@ -99,7 +99,7 @@ public class WooCommerceProductVariations extends WooCommerceSdk {
 
     @SneakyThrows
     public ProductVariation updateProductVariation(Integer productId, Integer productVariationId, ProductVariation productVariation) {
-        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT).concat("/" + productVariationId);
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT).concat("/").concat(String.valueOf(productVariationId));
         URI uri = baseUrl(endpoint);
         HttpRequest request = put(uri, getString(productVariation));
 
@@ -108,7 +108,7 @@ public class WooCommerceProductVariations extends WooCommerceSdk {
 
     @SneakyThrows
     public ProductVariation deleteProductVariation(Integer productId, Integer productVariationId) {
-        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT).concat("/" + productVariationId);
+        String endpoint = PRODUCT_ENDPOINT.concat("/").concat(String.valueOf(productId)).concat(PRODUCT_VARIATION_ENDPOINT).concat("/").concat(String.valueOf(productVariationId));
         URI uri = baseUrl(endpoint);
         HttpRequest request = delete(uri);
 
