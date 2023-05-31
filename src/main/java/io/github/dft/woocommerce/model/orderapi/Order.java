@@ -20,7 +20,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Order {
-    private int id;
+    private Integer id;
     @JsonProperty("_links")
     private Links link;
     private Double total;
