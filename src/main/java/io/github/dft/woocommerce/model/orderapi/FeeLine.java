@@ -16,8 +16,8 @@ import java.util.List;
 public class FeeLine {
     private int id;
     private String name;
-    private String total;
-    private String totalTax;
+    private Double total;
+    private Double totalTax;
     private List<Tax> taxes;
     private String taxClass;
     private String taxStatus;
