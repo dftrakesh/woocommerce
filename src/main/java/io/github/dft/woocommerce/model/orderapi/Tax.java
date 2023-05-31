@@ -11,7 +11,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Tax {
-    private int id;
-    private String total;
-    private String subTotal;
+    private Integer id;
+    private Double total;
+    private Double subTotal;
 }

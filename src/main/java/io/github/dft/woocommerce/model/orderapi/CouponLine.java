@@ -14,9 +14,9 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CouponLine {
-    private int id;
+    private Integer id;
     private String code;
-    private String discount;
-    private String discountTax;
+    private Double discount;
+    private Double discountTax;
     private List<MetaData> metaData;
 }

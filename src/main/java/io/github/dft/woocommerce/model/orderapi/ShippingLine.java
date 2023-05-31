@@ -14,10 +14,10 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ShippingLine {
-    private int id;
-    private String total;
+    private Integer id;
+    private Double total;
     private String methodId;
-    private String totalTax;
+    private Double totalTax;
     private List<Tax> taxes;
     private String methodTitle;
     private List<MetaData> metaData;

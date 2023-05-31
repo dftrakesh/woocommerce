@@ -10,7 +10,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Refund {
-    private int id;
-    private String total;
+    private Integer id;
+    private Double total;
     private String reason;
 }

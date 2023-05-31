@@ -14,18 +14,18 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class LineItem {
-    private int id;
-    private int price;
+    private Integer id;
+    private Double price;
     private String sku;
     private String name;
-    private String total;
-    private int quantity;
-    private int productId;
-    private int variationId;
+    private Double total;
+    private Integer quantity;
+    private Integer productId;
+    private Integer variationId;
     private String taxClass;
-    private String subtotal;
-    private String totalTax;
+    private Double subtotal;
+    private Double totalTax;
     private List<Tax> taxes;
-    private String subtotalTax;
+    private Double subtotalTax;
     private List<MetaData> metaData;
 }

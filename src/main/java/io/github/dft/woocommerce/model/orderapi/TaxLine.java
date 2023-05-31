@@ -14,12 +14,12 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class TaxLine {
-    private int id;
-    private int rateId;
+    private Integer id;
+    private Integer rateId;
     private String label;
     private String rateCode;
-    private String taxTotal;
+    private Double taxTotal;
     private boolean compound;
-    private String shippingTaxTotal;
+    private Double shippingTaxTotal;
     private List<MetaData> metaData;
 }
