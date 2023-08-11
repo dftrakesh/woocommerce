@@ -39,7 +39,7 @@ public class Product {
     private String taxClass;
     private String priceHtml;
     private Boolean featured;
-    private String salePrice;
+    private Double salePrice;
     private String permalink;
     private String taxStatus;
     private String buttonText;
@@ -52,7 +52,7 @@ public class Product {
     private Boolean backordered;
     private String stockStatus;
     private String purchaseNote;
-    private String regularPrice;
+    private Double regularPrice;
     private Integer shippingClassId;
     private Boolean manageStock;
     private Boolean purchasable;
