@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.github.dft.woocommerce.model.common.DateDeserializer;
-import io.github.dft.woocommerce.model.customerapi.MetaData;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -61,7 +60,6 @@ public class Product {
     private Dimension dimensions;
     private String shippingClass;
     private Boolean reviewsAllowed;
-    private List<MetaData> metaData;
     private Boolean shippingTaxable;
     private List<Integer> upsellIds;
     private String shortDescription;

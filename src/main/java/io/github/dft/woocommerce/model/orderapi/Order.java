@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.github.dft.woocommerce.model.common.DateDeserializer;
 import io.github.dft.woocommerce.model.customerapi.Billing;
-import io.github.dft.woocommerce.model.customerapi.MetaData;
 import io.github.dft.woocommerce.model.customerapi.Shipping;
 import lombok.Data;
 
@@ -50,7 +49,6 @@ public class Order {
     private List<TaxLine> taxLines;
     @JsonDeserialize(using = DateDeserializer.class)
     private LocalDateTime datePaid;
-    private List<MetaData> metaData;
     private List<LineItem> lineItems;
     private Boolean pricesIncludeTax;
     private String customerIpAddress;
