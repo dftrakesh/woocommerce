@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import io.github.dft.woocommerce.model.customerapi.MetaData;
 import lombok.Data;
 
 import java.util.List;
@@ -28,5 +27,4 @@ public class LineItem {
     private List<Tax> taxes;
     private Long refundTotal;
     private String subtotalTax;
-    private List<MetaData> metaData;
 }

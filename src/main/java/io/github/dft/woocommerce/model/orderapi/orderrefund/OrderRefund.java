@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.github.dft.woocommerce.model.common.DateDeserializer;
-import io.github.dft.woocommerce.model.customerapi.MetaData;
 import io.github.dft.woocommerce.model.orderapi.FeeLine;
 import io.github.dft.woocommerce.model.orderapi.ShippingLine;
 import io.github.dft.woocommerce.model.orderapi.TaxLine;
@@ -25,7 +24,6 @@ public class OrderRefund {
     private Long refundedBy;
     private boolean apiRefund;
     private boolean refundedPayment;
-    private List<MetaData> metaData;
     private List<LineItem> lineItems;
     @JsonDeserialize(using = DateDeserializer.class)
     private LocalDateTime dateCreated;

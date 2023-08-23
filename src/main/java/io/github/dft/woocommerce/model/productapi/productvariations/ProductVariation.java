@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.github.dft.woocommerce.model.common.DateDeserializer;
-import io.github.dft.woocommerce.model.customerapi.MetaData;
-import io.github.dft.woocommerce.model.productapi.*;
+import io.github.dft.woocommerce.model.productapi.Dimension;
+import io.github.dft.woocommerce.model.productapi.Download;
+import io.github.dft.woocommerce.model.productapi.Image;
+import io.github.dft.woocommerce.model.productapi.Links;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -48,7 +50,6 @@ public class ProductVariation {
     private Boolean downloadable;
     private Dimension dimensions;
     private String shippingClass;
-    private List<MetaData> metaData;
     private List<Download> downloads;
     private Boolean backordersAllowed;
     @JsonDeserialize(using = DateDeserializer.class)

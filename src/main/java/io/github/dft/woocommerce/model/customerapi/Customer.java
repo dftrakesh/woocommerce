@@ -10,7 +10,6 @@ import io.github.dft.woocommerce.model.common.DateDeserializer;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -31,7 +30,6 @@ public class Customer {
     private Shipping shipping;
     private String totalSpent;
     private Integer ordersCount;
-    private List<MetaData> metaData;
     private Boolean isPayingCustomer;
     @JsonDeserialize(using = DateDeserializer.class)
     private LocalDateTime dateCreated;
