@@ -23,4 +23,5 @@ public class Shipping {
     private String address2;
     private String lastName;
     private String firstName;
+    private String phone;
 }
