@@ -19,6 +19,7 @@ import java.util.concurrent.CompletableFuture;
 public class WooCommerceSdk {
 
     private String API_BASE_END_POINT = "/wp-json/wc/v3";
+    private String SHIPMENT_TRACKING_API_BASE_END_POINT = "/wp-json/wc-shipment-tracking/v3/";
     private String AUTHORIZATION = "Authorization";
     private int MAX_ATTEMPTS = 50;
     private int TIME_OUT_DURATION = 3000;
@@ -39,6 +40,13 @@ public class WooCommerceSdk {
     protected URI baseUrl(String endpoint) {
         return URI.create(accessCredential.getStoreDomain() +
                 API_BASE_END_POINT +
+                endpoint);
+    }
+
+    @SneakyThrows
+    protected URI shipmentTrackingBaseUrl(String endpoint) {
+        return URI.create(accessCredential.getStoreDomain() +
+                SHIPMENT_TRACKING_API_BASE_END_POINT +
                 endpoint);
     }
 
