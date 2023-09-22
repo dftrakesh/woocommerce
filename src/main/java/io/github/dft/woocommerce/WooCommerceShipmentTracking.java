@@ -37,7 +37,9 @@ public class WooCommerceShipmentTracking extends WooCommerceSdk {
             customTracking.setTrackingNumber(tracking.getTrackingNumber());
             customTracking.setCustomTrackingProvider(trackingProvider);
             String link = TRACKING_PROVIDER_LINK_MAP.get(trackingProvider.toUpperCase());
-            customTracking.setCustomTrackingLink(link.replace("{trackingNumber}", tracking.getTrackingNumber()));
+            if (link != null) {
+                customTracking.setCustomTrackingLink(link.replace("{trackingNumber}", tracking.getTrackingNumber()));
+            }
             request = post(uri, getString(customTracking));
         }
 
