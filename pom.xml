@@ -6,7 +6,7 @@
 
     <groupId>io.github.dftrakesh</groupId>
     <artifactId>woocommerce</artifactId>
-    <version>1.19</version>
+    <version>1.20</version>
     <packaging>jar</packaging>
 
     <name>woocommerce</name>
