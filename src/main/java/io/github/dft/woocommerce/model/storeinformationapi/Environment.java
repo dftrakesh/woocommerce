@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Environment {
+    private String storeId;
     private String homeUrl;
     private String siteUrl;
     private String version;
